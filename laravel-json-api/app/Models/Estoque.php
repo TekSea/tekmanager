@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class Estoque extends Model
 {
     use HasFactory;
 
-    protected $table = 'users';
+    protected $table = 'estoques';
 
-    protected $fillable = ['id', 'name', 'email', 'email_verified_at', 'password', 'remember_token', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'ref_sistema', 'ncm', 'produto', 'created_at', 'updated_at'];
 public $timestamps = true;
 protected $primaryKey = 'id';
 
