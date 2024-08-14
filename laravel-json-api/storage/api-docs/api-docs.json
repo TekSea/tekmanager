@@ -1,0 +1,2047 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "TekManager Sistema de Gestão Integrado",
+        "description": "Documentação geral da API de acesso aos dados",
+        "contact": {
+            "email": "cesar@berci.com.br"
+        },
+        "license": {
+            "name": "TekSea ₢ 2024",
+            "url": "http://www.teksea.net"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/clientes": {
+            "get": {
+                "summary": "Get all clientes",
+                "description": "Tabela que armazena informações dos clientes",
+                "operationId": "de55d50d1b708d9e5c63ee3f8fe8f54a",
+                "responses": {
+                    "200": {
+                        "description": "Get all clientes"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new cliente",
+                "operationId": "4ac6cdfa8d6c188fa2cb4f3263d4318a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "Identificador único de cada cliente",
+                                        "type": "integer"
+                                    },
+                                    "cnpj_cpf": {
+                                        "description": "CNPJ ou CPF do cliente",
+                                        "type": "string"
+                                    },
+                                    "nome": {
+                                        "description": "Nome completo ou razão social do cliente",
+                                        "type": "string"
+                                    },
+                                    "nome_fantasia": {
+                                        "description": "Nome fantasia do cliente, se aplicável",
+                                        "type": "string"
+                                    },
+                                    "uf": {
+                                        "description": "Unidade federativa (estado) do cliente",
+                                        "type": "string"
+                                    },
+                                    "cidade": {
+                                        "description": "Cidade do cliente",
+                                        "type": "string"
+                                    },
+                                    "representante": {
+                                        "description": "Representante associado ao cliente",
+                                        "type": "string"
+                                    },
+                                    "situacao": {
+                                        "description": "Situação do cliente (ativo/inativo)",
+                                        "type": "string"
+                                    },
+                                    "created_at": {
+                                        "description": "Data de criação do registro",
+                                        "type": "string"
+                                    },
+                                    "updated_at": {
+                                        "description": "Data de atualização do registro",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Create a new cliente"
+                    }
+                }
+            }
+        },
+        "/api/clientes/{id}": {
+            "get": {
+                "summary": "Get a cliente by ID",
+                "operationId": "0d3826d79390929601421b5810b61231",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get a cliente by ID"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update a cliente",
+                "operationId": "74956b09f3ea120b5dd531c73776ca11",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "Identificador único de cada cliente",
+                                        "type": "integer"
+                                    },
+                                    "cnpj_cpf": {
+                                        "description": "CNPJ ou CPF do cliente",
+                                        "type": "string"
+                                    },
+                                    "nome": {
+                                        "description": "Nome completo ou razão social do cliente",
+                                        "type": "string"
+                                    },
+                                    "nome_fantasia": {
+                                        "description": "Nome fantasia do cliente, se aplicável",
+                                        "type": "string"
+                                    },
+                                    "uf": {
+                                        "description": "Unidade federativa (estado) do cliente",
+                                        "type": "string"
+                                    },
+                                    "cidade": {
+                                        "description": "Cidade do cliente",
+                                        "type": "string"
+                                    },
+                                    "representante": {
+                                        "description": "Representante associado ao cliente",
+                                        "type": "string"
+                                    },
+                                    "situacao": {
+                                        "description": "Situação do cliente (ativo/inativo)",
+                                        "type": "string"
+                                    },
+                                    "created_at": {
+                                        "description": "Data de criação do registro",
+                                        "type": "string"
+                                    },
+                                    "updated_at": {
+                                        "description": "Data de atualização do registro",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update a cliente"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a cliente",
+                "operationId": "d15e304c609752c9f409ab81072fb52e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Delete a cliente"
+                    }
+                }
+            }
+        },
+        "/api/estoques": {
+            "get": {
+                "summary": "Get all estoques",
+                "description": "Tabela que armazena informações sobre os itens no estoque",
+                "operationId": "337a01fe45fe0a62077e6e63b04dd8b7",
+                "responses": {
+                    "200": {
+                        "description": "Get all estoques"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new estoque",
+                "operationId": "eb554df656d65a2e11c025030b323cad",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "Identificador único de cada item no estoque",
+                                        "type": "integer"
+                                    },
+                                    "ref_sistema": {
+                                        "description": "Referência do sistema para o item",
+                                        "type": "string"
+                                    },
+                                    "ncm": {
+                                        "description": "Código NCM (Nomenclatura Comum do Mercosul) do item",
+                                        "type": "string"
+                                    },
+                                    "produto": {
+                                        "description": "Descrição detalhada do produto",
+                                        "type": "string"
+                                    },
+                                    "created_at": {
+                                        "description": "Data de criação do registro",
+                                        "type": "string"
+                                    },
+                                    "updated_at": {
+                                        "description": "Data de atualização do registro",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Create a new estoque"
+                    }
+                }
+            }
+        },
+        "/api/estoques/{id}": {
+            "get": {
+                "summary": "Get a estoque by ID",
+                "operationId": "95d8a753d5c7c2585cd4104fe0686426",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get a estoque by ID"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update a estoque",
+                "operationId": "13d439f51b47d3855f254989b1cf269f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "Identificador único de cada item no estoque",
+                                        "type": "integer"
+                                    },
+                                    "ref_sistema": {
+                                        "description": "Referência do sistema para o item",
+                                        "type": "string"
+                                    },
+                                    "ncm": {
+                                        "description": "Código NCM (Nomenclatura Comum do Mercosul) do item",
+                                        "type": "string"
+                                    },
+                                    "produto": {
+                                        "description": "Descrição detalhada do produto",
+                                        "type": "string"
+                                    },
+                                    "created_at": {
+                                        "description": "Data de criação do registro",
+                                        "type": "string"
+                                    },
+                                    "updated_at": {
+                                        "description": "Data de atualização do registro",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update a estoque"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a estoque",
+                "operationId": "6a4f37d08db849357d14311aa0e8c184",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Delete a estoque"
+                    }
+                }
+            }
+        },
+        "/api/failedJobs": {
+            "get": {
+                "summary": "Get all failedJobs",
+                "description": "",
+                "operationId": "b1cba493c3d810f760698f6a0e9ca3f5",
+                "responses": {
+                    "200": {
+                        "description": "Get all failedJobs"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new failedJob",
+                "operationId": "b2f9818521dbb29d0b6c7156ee58380b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "uuid": {
+                                        "type": "string"
+                                    },
+                                    "connection": {
+                                        "type": "string"
+                                    },
+                                    "queue": {
+                                        "type": "string"
+                                    },
+                                    "payload": {
+                                        "type": "string"
+                                    },
+                                    "exception": {
+                                        "type": "string"
+                                    },
+                                    "failed_at": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Create a new failedJob"
+                    }
+                }
+            }
+        },
+        "/api/failedJobs/{id}": {
+            "get": {
+                "summary": "Get a failedJob by ID",
+                "operationId": "5176114944d6847392b7106ff9a881e2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get a failedJob by ID"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update a failedJob",
+                "operationId": "b490f68286dc32f5d2d31c9e831af89c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "uuid": {
+                                        "type": "string"
+                                    },
+                                    "connection": {
+                                        "type": "string"
+                                    },
+                                    "queue": {
+                                        "type": "string"
+                                    },
+                                    "payload": {
+                                        "type": "string"
+                                    },
+                                    "exception": {
+                                        "type": "string"
+                                    },
+                                    "failed_at": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update a failedJob"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a failedJob",
+                "operationId": "86a1a5676f3ea4c92f7c170d17a3b885",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Delete a failedJob"
+                    }
+                }
+            }
+        },
+        "/api/migrations": {
+            "get": {
+                "summary": "Get all migrations",
+                "description": "",
+                "operationId": "c12da26c94414a09b06a54aff37f20b5",
+                "responses": {
+                    "200": {
+                        "description": "Get all migrations"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new migration",
+                "operationId": "9ae26e3a3cb51aac10515e317717405b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "migration": {
+                                        "type": "string"
+                                    },
+                                    "batch": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Create a new migration"
+                    }
+                }
+            }
+        },
+        "/api/migrations/{id}": {
+            "get": {
+                "summary": "Get a migration by ID",
+                "operationId": "79926098b91edb7c83bf45b03d02ff30",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get a migration by ID"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update a migration",
+                "operationId": "eef08f8c1af1be446f0b6a4b918c607b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "migration": {
+                                        "type": "string"
+                                    },
+                                    "batch": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update a migration"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a migration",
+                "operationId": "e1f293f5751740a002471d5e3e5d237c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Delete a migration"
+                    }
+                }
+            }
+        },
+        "/api/oauthAccessTokens": {
+            "get": {
+                "summary": "Get all oauthAccessTokens",
+                "description": "",
+                "operationId": "b1f7b53bc282eaa5b246f92cb11b517d",
+                "responses": {
+                    "200": {
+                        "description": "Get all oauthAccessTokens"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new oauthAccessToken",
+                "operationId": "2c148957b052a52e726836e68315edb2",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "integer"
+                                    },
+                                    "client_id": {
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "scopes": {
+                                        "type": "string"
+                                    },
+                                    "revoked": {
+                                        "type": "integer"
+                                    },
+                                    "created_at": {
+                                        "type": "string"
+                                    },
+                                    "updated_at": {
+                                        "type": "string"
+                                    },
+                                    "expires_at": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Create a new oauthAccessToken"
+                    }
+                }
+            }
+        },
+        "/api/oauthAccessTokens/{id}": {
+            "get": {
+                "summary": "Get a oauthAccessToken by ID",
+                "operationId": "4baded4f90b80726af8c3719ed80acd9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get a oauthAccessToken by ID"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update a oauthAccessToken",
+                "operationId": "610bee7dbdda2c06836717b9086b3513",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "integer"
+                                    },
+                                    "client_id": {
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "scopes": {
+                                        "type": "string"
+                                    },
+                                    "revoked": {
+                                        "type": "integer"
+                                    },
+                                    "created_at": {
+                                        "type": "string"
+                                    },
+                                    "updated_at": {
+                                        "type": "string"
+                                    },
+                                    "expires_at": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update a oauthAccessToken"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a oauthAccessToken",
+                "operationId": "740f097562f41189f90dd9c32f4d2365",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Delete a oauthAccessToken"
+                    }
+                }
+            }
+        },
+        "/api/oauthAuthCodes": {
+            "get": {
+                "summary": "Get all oauthAuthCodes",
+                "description": "",
+                "operationId": "92373ab6104a73db2a6681cf0208b0fa",
+                "responses": {
+                    "200": {
+                        "description": "Get all oauthAuthCodes"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new oauthAuthCode",
+                "operationId": "d6a369373754197b3c69107d0633ca9b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "integer"
+                                    },
+                                    "client_id": {
+                                        "type": "integer"
+                                    },
+                                    "scopes": {
+                                        "type": "string"
+                                    },
+                                    "revoked": {
+                                        "type": "integer"
+                                    },
+                                    "expires_at": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Create a new oauthAuthCode"
+                    }
+                }
+            }
+        },
+        "/api/oauthAuthCodes/{id}": {
+            "get": {
+                "summary": "Get a oauthAuthCode by ID",
+                "operationId": "a89e0090eea47bbf26c8422d55c39f24",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get a oauthAuthCode by ID"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update a oauthAuthCode",
+                "operationId": "95bd7e001c7c45c524cbb9323c940d69",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "integer"
+                                    },
+                                    "client_id": {
+                                        "type": "integer"
+                                    },
+                                    "scopes": {
+                                        "type": "string"
+                                    },
+                                    "revoked": {
+                                        "type": "integer"
+                                    },
+                                    "expires_at": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update a oauthAuthCode"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a oauthAuthCode",
+                "operationId": "3bb117c82d2b58f41ddeb20aeb780bab",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Delete a oauthAuthCode"
+                    }
+                }
+            }
+        },
+        "/api/oauthClients": {
+            "get": {
+                "summary": "Get all oauthClients",
+                "description": "",
+                "operationId": "e737b9e3e331169fba1c191297cee4a9",
+                "responses": {
+                    "200": {
+                        "description": "Get all oauthClients"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new oauthClient",
+                "operationId": "d9114bd993490523a0757ab75abaac84",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "user_id": {
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "secret": {
+                                        "type": "string"
+                                    },
+                                    "provider": {
+                                        "type": "string"
+                                    },
+                                    "redirect": {
+                                        "type": "string"
+                                    },
+                                    "personal_access_client": {
+                                        "type": "integer"
+                                    },
+                                    "password_client": {
+                                        "type": "integer"
+                                    },
+                                    "revoked": {
+                                        "type": "integer"
+                                    },
+                                    "created_at": {
+                                        "type": "string"
+                                    },
+                                    "updated_at": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Create a new oauthClient"
+                    }
+                }
+            }
+        },
+        "/api/oauthClients/{id}": {
+            "get": {
+                "summary": "Get a oauthClient by ID",
+                "operationId": "7ece844aff8cbd26f0a771370fa49ebe",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get a oauthClient by ID"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update a oauthClient",
+                "operationId": "b1890724e61262ce1baf876b14b58cfd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "user_id": {
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "secret": {
+                                        "type": "string"
+                                    },
+                                    "provider": {
+                                        "type": "string"
+                                    },
+                                    "redirect": {
+                                        "type": "string"
+                                    },
+                                    "personal_access_client": {
+                                        "type": "integer"
+                                    },
+                                    "password_client": {
+                                        "type": "integer"
+                                    },
+                                    "revoked": {
+                                        "type": "integer"
+                                    },
+                                    "created_at": {
+                                        "type": "string"
+                                    },
+                                    "updated_at": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update a oauthClient"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a oauthClient",
+                "operationId": "88d1a4fb7c36a8d5370521227274340e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Delete a oauthClient"
+                    }
+                }
+            }
+        },
+        "/api/oauthPersonalAccessClients": {
+            "get": {
+                "summary": "Get all oauthPersonalAccessClients",
+                "description": "",
+                "operationId": "95ea3bf95ab001e2c085d9ee662fa0d5",
+                "responses": {
+                    "200": {
+                        "description": "Get all oauthPersonalAccessClients"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new oauthPersonalAccessClient",
+                "operationId": "3d00760bf3ba59c86bee47a4b5176985",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "client_id": {
+                                        "type": "integer"
+                                    },
+                                    "created_at": {
+                                        "type": "string"
+                                    },
+                                    "updated_at": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Create a new oauthPersonalAccessClient"
+                    }
+                }
+            }
+        },
+        "/api/oauthPersonalAccessClients/{id}": {
+            "get": {
+                "summary": "Get a oauthPersonalAccessClient by ID",
+                "operationId": "0f38ec874ead64a54332b83b6747cb18",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get a oauthPersonalAccessClient by ID"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update a oauthPersonalAccessClient",
+                "operationId": "a7e6b47cde7f7634bdc666d71f0ea122",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "client_id": {
+                                        "type": "integer"
+                                    },
+                                    "created_at": {
+                                        "type": "string"
+                                    },
+                                    "updated_at": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update a oauthPersonalAccessClient"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a oauthPersonalAccessClient",
+                "operationId": "96c57a19c315549acdad227f96d2669f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Delete a oauthPersonalAccessClient"
+                    }
+                }
+            }
+        },
+        "/api/oauthRefreshTokens": {
+            "get": {
+                "summary": "Get all oauthRefreshTokens",
+                "description": "",
+                "operationId": "8b9f0021b4da47d642e2cd2c242a42b7",
+                "responses": {
+                    "200": {
+                        "description": "Get all oauthRefreshTokens"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new oauthRefreshToken",
+                "operationId": "688628a721d6905356508e571b8bbe25",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "access_token_id": {
+                                        "type": "string"
+                                    },
+                                    "revoked": {
+                                        "type": "integer"
+                                    },
+                                    "expires_at": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Create a new oauthRefreshToken"
+                    }
+                }
+            }
+        },
+        "/api/oauthRefreshTokens/{id}": {
+            "get": {
+                "summary": "Get a oauthRefreshToken by ID",
+                "operationId": "8fa2a5ce9afefbb46ff92e10bb2a0b32",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get a oauthRefreshToken by ID"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update a oauthRefreshToken",
+                "operationId": "7b29c731f15de5f6e0bec5581f1f862f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "access_token_id": {
+                                        "type": "string"
+                                    },
+                                    "revoked": {
+                                        "type": "integer"
+                                    },
+                                    "expires_at": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update a oauthRefreshToken"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a oauthRefreshToken",
+                "operationId": "f3918266a134b35296f887f6db41934f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Delete a oauthRefreshToken"
+                    }
+                }
+            }
+        },
+        "/api/passwordResets": {
+            "get": {
+                "summary": "Get all passwordResets",
+                "description": "",
+                "operationId": "3b5ac0a9d9ad3188fde9c30d0cf1526e",
+                "responses": {
+                    "200": {
+                        "description": "Get all passwordResets"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new passwordReset",
+                "operationId": "7b30862abc19a136b82f05a396221ca6",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "token": {
+                                        "type": "string"
+                                    },
+                                    "created_at": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Create a new passwordReset"
+                    }
+                }
+            }
+        },
+        "/api/passwordResets/{id}": {
+            "get": {
+                "summary": "Get a passwordReset by ID",
+                "operationId": "b9060f982b8877f5cd662d4904fcb8c2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get a passwordReset by ID"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update a passwordReset",
+                "operationId": "a5b647cb8c40b6513432e0d940f78ca3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "token": {
+                                        "type": "string"
+                                    },
+                                    "created_at": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update a passwordReset"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a passwordReset",
+                "operationId": "4c4ae8118449ce245c8388f1799b4184",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Delete a passwordReset"
+                    }
+                }
+            }
+        },
+        "/api/personalAccessTokens": {
+            "get": {
+                "summary": "Get all personalAccessTokens",
+                "description": "",
+                "operationId": "813f3e18ff841824a30372de44edee92",
+                "responses": {
+                    "200": {
+                        "description": "Get all personalAccessTokens"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new personalAccessToken",
+                "operationId": "85148d29c311f761ffedd5c0c35236a4",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "tokenable_type": {
+                                        "type": "string"
+                                    },
+                                    "tokenable_id": {
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "token": {
+                                        "type": "string"
+                                    },
+                                    "abilities": {
+                                        "type": "string"
+                                    },
+                                    "last_used_at": {
+                                        "type": "string"
+                                    },
+                                    "expires_at": {
+                                        "type": "string"
+                                    },
+                                    "created_at": {
+                                        "type": "string"
+                                    },
+                                    "updated_at": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Create a new personalAccessToken"
+                    }
+                }
+            }
+        },
+        "/api/personalAccessTokens/{id}": {
+            "get": {
+                "summary": "Get a personalAccessToken by ID",
+                "operationId": "6250aba5f17eb3bc9df0d68a6a817fe1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get a personalAccessToken by ID"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update a personalAccessToken",
+                "operationId": "67215c8c96121f1df1a37be592485bab",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "tokenable_type": {
+                                        "type": "string"
+                                    },
+                                    "tokenable_id": {
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "token": {
+                                        "type": "string"
+                                    },
+                                    "abilities": {
+                                        "type": "string"
+                                    },
+                                    "last_used_at": {
+                                        "type": "string"
+                                    },
+                                    "expires_at": {
+                                        "type": "string"
+                                    },
+                                    "created_at": {
+                                        "type": "string"
+                                    },
+                                    "updated_at": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update a personalAccessToken"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a personalAccessToken",
+                "operationId": "a9e5b5cf2188da33805fe8e7ad73548b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Delete a personalAccessToken"
+                    }
+                }
+            }
+        },
+        "/api/rastreabilidades": {
+            "get": {
+                "summary": "Get all rastreabilidades",
+                "description": "Tabela que armazena a rastreabilidade dos produtos",
+                "operationId": "516132bc62644eda1e0de607407382c3",
+                "responses": {
+                    "200": {
+                        "description": "Get all rastreabilidades"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new rastreabilidade",
+                "operationId": "6c0a327a79f300507d1942dd629fbab6",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "Identificador único para rastreabilidade de cada produto",
+                                        "type": "integer"
+                                    },
+                                    "numero_serie": {
+                                        "description": "Número de série do produto",
+                                        "type": "integer"
+                                    },
+                                    "data_geracao": {
+                                        "description": "Data de geração do produto ou registro",
+                                        "type": "string"
+                                    },
+                                    "responsavel_criacao": {
+                                        "description": "Responsável pela criação do produto ou registro",
+                                        "type": "string"
+                                    },
+                                    "cliente_id": {
+                                        "description": "Identificador do cliente relacionado (FK para clientes)",
+                                        "type": "integer"
+                                    },
+                                    "estoque_id": {
+                                        "description": "Identificador do item no estoque relacionado (FK para estoque)",
+                                        "type": "integer"
+                                    },
+                                    "pv": {
+                                        "description": "PV associado ao produto",
+                                        "type": "string"
+                                    },
+                                    "op": {
+                                        "description": "Ordem de produção associada ao produto",
+                                        "type": "string"
+                                    },
+                                    "codigo_net": {
+                                        "description": "Código NET do produto",
+                                        "type": "integer"
+                                    },
+                                    "ref_sistema": {
+                                        "description": "Referência do sistema para o produto",
+                                        "type": "string"
+                                    },
+                                    "produto": {
+                                        "description": "Descrição do produto",
+                                        "type": "string"
+                                    },
+                                    "obra_alocada": {
+                                        "description": "Obra onde o produto foi alocado",
+                                        "type": "string"
+                                    },
+                                    "n_fatura": {
+                                        "description": "Número da fatura associada ao produto",
+                                        "type": "string"
+                                    },
+                                    "data_enviado": {
+                                        "description": "Data de envio do produto",
+                                        "type": "string"
+                                    },
+                                    "garantia_dias": {
+                                        "description": "Número de dias de garantia do produto",
+                                        "type": "integer"
+                                    },
+                                    "expira_garantia": {
+                                        "description": "Data de expiração da garantia",
+                                        "type": "string"
+                                    },
+                                    "status_garantia": {
+                                        "description": "Status atual da garantia do produto",
+                                        "type": "string"
+                                    },
+                                    "condicao_garantia": {
+                                        "description": "Condições específicas da garantia",
+                                        "type": "string"
+                                    },
+                                    "created_at": {
+                                        "description": "Data de criação do registro",
+                                        "type": "string"
+                                    },
+                                    "updated_at": {
+                                        "description": "Data de atualização do registro",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Create a new rastreabilidade"
+                    }
+                }
+            }
+        },
+        "/api/rastreabilidades/{id}": {
+            "get": {
+                "summary": "Get a rastreabilidade by ID",
+                "operationId": "db4bf4d21e450c09ee41c6b4556422ab",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get a rastreabilidade by ID"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update a rastreabilidade",
+                "operationId": "bf6ea2910ab54e85356a25df883079e4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "Identificador único para rastreabilidade de cada produto",
+                                        "type": "integer"
+                                    },
+                                    "numero_serie": {
+                                        "description": "Número de série do produto",
+                                        "type": "integer"
+                                    },
+                                    "data_geracao": {
+                                        "description": "Data de geração do produto ou registro",
+                                        "type": "string"
+                                    },
+                                    "responsavel_criacao": {
+                                        "description": "Responsável pela criação do produto ou registro",
+                                        "type": "string"
+                                    },
+                                    "cliente_id": {
+                                        "description": "Identificador do cliente relacionado (FK para clientes)",
+                                        "type": "integer"
+                                    },
+                                    "estoque_id": {
+                                        "description": "Identificador do item no estoque relacionado (FK para estoque)",
+                                        "type": "integer"
+                                    },
+                                    "pv": {
+                                        "description": "PV associado ao produto",
+                                        "type": "string"
+                                    },
+                                    "op": {
+                                        "description": "Ordem de produção associada ao produto",
+                                        "type": "string"
+                                    },
+                                    "codigo_net": {
+                                        "description": "Código NET do produto",
+                                        "type": "integer"
+                                    },
+                                    "ref_sistema": {
+                                        "description": "Referência do sistema para o produto",
+                                        "type": "string"
+                                    },
+                                    "produto": {
+                                        "description": "Descrição do produto",
+                                        "type": "string"
+                                    },
+                                    "obra_alocada": {
+                                        "description": "Obra onde o produto foi alocado",
+                                        "type": "string"
+                                    },
+                                    "n_fatura": {
+                                        "description": "Número da fatura associada ao produto",
+                                        "type": "string"
+                                    },
+                                    "data_enviado": {
+                                        "description": "Data de envio do produto",
+                                        "type": "string"
+                                    },
+                                    "garantia_dias": {
+                                        "description": "Número de dias de garantia do produto",
+                                        "type": "integer"
+                                    },
+                                    "expira_garantia": {
+                                        "description": "Data de expiração da garantia",
+                                        "type": "string"
+                                    },
+                                    "status_garantia": {
+                                        "description": "Status atual da garantia do produto",
+                                        "type": "string"
+                                    },
+                                    "condicao_garantia": {
+                                        "description": "Condições específicas da garantia",
+                                        "type": "string"
+                                    },
+                                    "created_at": {
+                                        "description": "Data de criação do registro",
+                                        "type": "string"
+                                    },
+                                    "updated_at": {
+                                        "description": "Data de atualização do registro",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update a rastreabilidade"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a rastreabilidade",
+                "operationId": "410ec4478f94ee96b93c556ed11be3f4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Delete a rastreabilidade"
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "get": {
+                "summary": "Get all users",
+                "description": "",
+                "operationId": "c457726701591d1183b53aa71fc13441",
+                "responses": {
+                    "200": {
+                        "description": "Get all users"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new user",
+                "operationId": "592819a0265360b2014512d6dbfaf0e7",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "email_verified_at": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "remember_token": {
+                                        "type": "string"
+                                    },
+                                    "created_at": {
+                                        "type": "string"
+                                    },
+                                    "updated_at": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Create a new user"
+                    }
+                }
+            }
+        },
+        "/api/users/{id}": {
+            "get": {
+                "summary": "Get a user by ID",
+                "operationId": "36a33ff774d5cba33c039dec2c3e0287",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get a user by ID"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update a user",
+                "operationId": "b9091397c8b25f12c6adb74be6ce3a5a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "email_verified_at": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "remember_token": {
+                                        "type": "string"
+                                    },
+                                    "created_at": {
+                                        "type": "string"
+                                    },
+                                    "updated_at": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update a user"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a user",
+                "operationId": "fa56cffde745d3f152f95cbacd936c0b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Delete a user"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -2,6 +2,22 @@
 
 namespace App\Http;
 
+/**
+ * @OA\Info(
+ *      version="1.0.0",
+ *      title="TekManager Sistema de Gestão Integrado",
+ *      description="Documentação geral da API de acesso aos dados",
+ *      @OA\Contact(
+ *          email="cesar@berci.com.br"
+ *      ),
+ *      @OA\License(
+ *          name="TekSea ₢ 2024",
+ *          url="http://www.teksea.net"
+ *      )
+ * )
+ */
+
+
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel

@@ -1,0 +1,26 @@
+cesar@DESKTOP-S08FH1B:/mnt/f/Work/teksea/tekmanager/laravel-json-api$ php artisan passport:install --force
+
+   INFO  Encryption keys generated successfully.  
+
+   INFO  Publishing [passport-migrations] assets.  
+
+  Copying directory [vendor/laravel/passport/database/migrations] to [database/migrations] .......... DONE
+
+ Would you like to run all pending database migrations? (yes/no) [yes]:
+ > yes
+
+   INFO  Nothing to migrate.  
+
+ Would you like to create the "personal access" and "password grant" clients? (yes/no) [yes]:
+ > yes
+
+   INFO  Personal access client created successfully.  
+
+  Client ID ............................................................................................ 1  
+  Client secret ................................................. OUhzerKyCB7RNtmGZlobUE9E0P5DrHxeQIJA0Z9Z  
+
+   INFO  Password grant client created successfully.  
+
+  Client ID ............................................................................................ 2  
+  Client secret ................................................. vkqvWjllicWbPDe2YLuEfwhwFjF5gW3sISQppbkx  
+cesar@DESKTOP-S08FH1B:/mnt/f/Work/teksea/tekmanager/laravel-json-api$ php artisan passport:install
