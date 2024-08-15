@@ -21,16 +21,8 @@ import "./assets/css/nucleo-icons.css";
 import "./assets/css/nucleo-svg.css";
 import SoftUIDashboard from "./soft-ui-dashboard";
 
-// BootstrapVue
-import BootstrapVue from 'bootstrap-vue';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
-
 const appInstance = createApp(App);
-appInstance.use(BootstrapVue);
 appInstance.use(store);
 appInstance.use(router);
 appInstance.use(SoftUIDashboard);
 appInstance.mount("#app");
-
-
