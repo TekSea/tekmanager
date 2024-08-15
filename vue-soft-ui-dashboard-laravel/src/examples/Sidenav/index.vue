@@ -11,7 +11,7 @@
         id="iconSidenav"
       ></i>
       <a class="m-0 navbar-brand" href="/">
-        <img :src="logo" class="navbar-brand-img h-100" alt="main_logo" />
+        <img :src="logo" class="navbar-brand-img h-100" alt="main_logo" style="width: 75%;" />
         <h3><span class="ms-1 font-weight-bold">TekManager</span></h3>
       </a>
     </div>
