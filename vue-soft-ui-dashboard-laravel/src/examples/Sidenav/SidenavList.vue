@@ -57,14 +57,15 @@
           </template>
         </sidenav-collapse>
       </li>
-      <!--
+      
       <li class="nav-item">
-        <sidenav-collapse navText="Estoque" :to="{ name: 'Estoque' }">
+        <sidenav-collapse navText="Estoque" :to="{ name: 'Estoques' }">
           <template #icon>
             <office />
           </template>
         </sidenav-collapse>
       </li>
+      <!--
       <li class="nav-item">
         <sidenav-collapse navText="Rastreabilidade" :to="{ name: 'Rastreabilidade' }">
           <template #icon>
@@ -74,75 +75,27 @@
       </li>
       -->
 
-      <li class="nav-item">
-        <sidenav-collapse
-          navText="Virtual Reality"
-          :to="{ name: 'Virtual Reality' }"
-        >
-          <template #icon>
-            <box3d />
-          </template>
-        </sidenav-collapse>
-      </li>
-      
-      <li class="nav-item">
-        <sidenav-collapse navText="RTL" :to="{ name: 'Rtl' }">
-          <template #icon>
-            <settings />
-          </template>
-        </sidenav-collapse>
-      </li>
-      <li class="nav-item">
-        <sidenav-collapse navText="Profile" :to="{ name: 'ProfileTemplate' }">
-          <template #icon>
-            <customer-support />
-          </template>
-        </sidenav-collapse>
-      </li>
-      <li class="nav-item">
-        <sidenav-collapse navText="Sign In" :to="{ name: 'Sign In' }">
-          <template #icon>
-            <document />
-          </template>
-        </sidenav-collapse>
-      </li>
-      
-      <li class="nav-item">
-        <sidenav-collapse navText="Sign Up" :to="{ name: 'Sign Up' }">
-          <template #icon>
-            <spaceship />
-          </template>
-        </sidenav-collapse>
-      </li>
       
     </ul>
   </div>
   <div class="pt-3 mx-3 mt-3 sidenav-footer">
     <sidenav-card
       :class="cardBg"
-      textPrimary="Need Help?"
-      textSecondary="Please check our docs"
-      route="https://vue-soft-ui-dashboard-laravel-docs.creative-tim.com/vue/overview/soft-ui-dashboard"
-      label="Documentation"
+      textPrimary="Precisa de ajuda?"
+      textSecondary="Documentação do sistema"
+      route="https://teksea.net"
+      label="Documentação"
       icon="ni ni-diamond"
     />
-    <a
-      class="btn bg-gradient-success mt-4 w-100"
-      href="https://www.creative-tim.com/product/vue-soft-ui-dashboard-laravel-pro?ref=vsud"
-      type="button"
-      >Upgrade to pro</a
     >
   </div>
 </template>
 <script>
 import SidenavCollapse from "./SidenavCollapse.vue";
 import SidenavCard from "./SidenavCard.vue";
-import Box3d from "../../components/Icon/Box3d.vue";
 import CustomerSupport from "../../components/Icon/CustomerSupport.vue";
 import Switches from "../../components/Icon/Switches.vue";
 import Document from "../../components/Icon/Document.vue";
-import Spaceship from "../../components/Icon/Spaceship.vue";
-import Settings from "../../components/Icon/Settings.vue";
 
 export default {
   name: "SidenavList",
@@ -159,12 +112,9 @@ export default {
   components: {
     SidenavCollapse,
     SidenavCard,   
-    Box3d,
     CustomerSupport,
     Switches,
     Document,
-    Spaceship,
-    Settings,
   },
   methods: {
     getRoute() {
