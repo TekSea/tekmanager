@@ -1,34 +1,46 @@
 <template>
-  <div class="table-responsive">
-    <table class="table align-items-center mb-0">
-      <thead>
-        <tr>
-          <th @click="sortTable('id')" :class="getSortClass('id')">ID</th>
-          <th @click="sortTable('nome')" :class="getSortClass('nome')">Nome</th>
-          <th @click="sortTable('nome_fantasia')" :class="getSortClass('nome_fantasia')">Nome Fantasia</th>
-          <th @click="sortTable('uf')" :class="getSortClass('uf')">UF</th>
-          <th @click="sortTable('cidade')" :class="getSortClass('cidade')">Cidade</th>
-          <th @click="sortTable('representante')" :class="getSortClass('representante')">Representante</th>
-          <th @click="sortTable('situacao')" :class="getSortClass('situacao')">Situação</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="cliente in sortedClientes" :key="cliente.id">
-          <td>{{ cliente.id }}</td>
-          <td>{{ cliente.nome }}</td>
-          <td>{{ cliente.nome_fantasia }}</td>
-          <td>{{ cliente.uf }}</td>
-          <td>{{ cliente.cidade }}</td>
-          <td>{{ cliente.representante }}</td>
-          <td>
-            <span :class="getStatusClass(cliente.situacao)">
-              <i :class="getStatusIcon(cliente.situacao)"></i>
-              {{ cliente.situacao }}
-            </span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <input
+          type="text"
+          v-model="searchQuery"
+          class="form-control mb-3"
+          placeholder="Buscar..."
+        />
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table align-items-center mb-0">
+        <thead>
+          <tr>
+            <th @click="sortTable('id')" :class="getSortClass('id')">ID</th>
+            <th @click="sortTable('nome')" :class="getSortClass('nome')">Nome</th>
+            <th @click="sortTable('nome_fantasia')" :class="getSortClass('nome_fantasia')">Nome Fantasia</th>
+            <th @click="sortTable('uf')" :class="getSortClass('uf')">UF</th>
+            <th @click="sortTable('cidade')" :class="getSortClass('cidade')">Cidade</th>
+            <th @click="sortTable('representante')" :class="getSortClass('representante')">Representante</th>
+            <th @click="sortTable('situacao')" :class="getSortClass('situacao')">Situação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="cliente in filteredClientes" :key="cliente.id">
+            <td>{{ cliente.id }}</td>
+            <td>{{ cliente.nome }}</td>
+            <td>{{ cliente.nome_fantasia }}</td>
+            <td>{{ cliente.uf }}</td>
+            <td>{{ cliente.cidade }}</td>
+            <td>{{ cliente.representante }}</td>
+            <td>
+              <span :class="getStatusClass(cliente.situacao)">
+                <i :class="getStatusIcon(cliente.situacao)"></i>
+                {{ cliente.situacao }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -45,6 +57,7 @@ export default {
     return {
       currentSort: 'id',
       currentSortDir: 'asc',
+      searchQuery: '',
     };
   },
   computed: {
@@ -55,6 +68,18 @@ export default {
         if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
         if (a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
         return 0;
+      });
+    },
+    filteredClientes() {
+      return this.sortedClientes.filter(cliente => {
+        return (
+          cliente.nome.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          cliente.nome_fantasia.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          cliente.uf.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          cliente.cidade.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          cliente.representante.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          cliente.situacao.toLowerCase().includes(this.searchQuery.toLowerCase())
+        );
       });
     },
   },
@@ -164,5 +189,9 @@ td {
 .fas.fa-exclamation-circle,
 .fas.fa-question-circle {
   margin-right: 8px;
+}
+
+.form-control {
+  max-width: 300px;
 }
 </style>
