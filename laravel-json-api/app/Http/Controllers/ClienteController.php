@@ -9,7 +9,7 @@ class ClienteController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/api/clientes",
+     *     path="/api/v2/clientes",
      *     summary="Get all clientes",
      *     description="Tabela que armazena informações dos clientes",
      *     @OA\Response(response="200", description="Get all clientes")
@@ -23,23 +23,23 @@ class ClienteController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/clientes",
+     *     path="/api/v2/clientes",
      *     summary="Create a new cliente",
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
      *             type="object",
      *             properties={
-     *                 @OA\Property(property="id", type="integer", description="Identificador único de cada cliente"),
-                 *                 @OA\Property(property="cnpj_cpf", type="string", description="CNPJ ou CPF do cliente"),
-                 *                 @OA\Property(property="nome", type="string", description="Nome completo ou razão social do cliente"),
-                 *                 @OA\Property(property="nome_fantasia", type="string", description="Nome fantasia do cliente, se aplicável"),
-                 *                 @OA\Property(property="uf", type="string", description="Unidade federativa (estado) do cliente"),
-                 *                 @OA\Property(property="cidade", type="string", description="Cidade do cliente"),
-                 *                 @OA\Property(property="representante", type="string", description="Representante associado ao cliente"),
-                 *                 @OA\Property(property="situacao", type="string", description="Situação do cliente (ativo/inativo)"),
-                 *                 @OA\Property(property="created_at", type="string", description="Data de criação do registro"),
-                 *                 @OA\Property(property="updated_at", type="string", description="Data de atualização do registro")
+     *                 @OA\Property(property="id", type="integer", description="Identificador único de cada cliente", example=1),
+                        @OA\Property(property="cnpj_cpf", type="string", description="CNPJ ou CPF do cliente", example="example"),
+                        @OA\Property(property="nome", type="string", description="Nome completo ou razão social do cliente", example="example"),
+                        @OA\Property(property="nome_fantasia", type="string", description="Nome fantasia do cliente, se aplicável", example="example"),
+                        @OA\Property(property="uf", type="string", description="Unidade federativa (estado) do cliente", example="example"),
+                        @OA\Property(property="cidade", type="string", description="Cidade do cliente", example="example"),
+                        @OA\Property(property="representante", type="string", description="Representante associado ao cliente", example="example"),
+                        @OA\Property(property="situacao", type="string", description="Situação do cliente (ativo/inativo)", example="example"),
+                        @OA\Property(property="created_at", type="string", description="Data de criação do registro", example="2022-01-01 00:00:00"),
+                        @OA\Property(property="updated_at", type="string", description="Data de atualização do registro", example="2022-01-01 00:00:00")
      *             }
      *         )
      *     ),
@@ -54,13 +54,14 @@ class ClienteController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/clientes/{id}",
+     *     path="/api/v2/clientes/{id}",
      *     summary="Get a cliente by ID",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
-     *         @OA\Schema(type="integer")
+     *         @OA\Schema(type="integer"),
+     *         description="The ID of the cliente"
      *     ),
      *     @OA\Response(response="200", description="Get a cliente by ID")
      * )
@@ -73,29 +74,30 @@ class ClienteController extends Controller
 
     /**
      * @OA\Put(
-     *     path="/api/clientes/{id}",
+     *     path="/api/v2/clientes/{id}",
      *     summary="Update a cliente",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
-     *         @OA\Schema(type="integer")
+     *         @OA\Schema(type="integer"),
+     *         description="The ID of the cliente"
      *     ),
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
      *             type="object",
      *             properties={
-     *                 @OA\Property(property="id", type="integer", description="Identificador único de cada cliente"),
-                 *                 @OA\Property(property="cnpj_cpf", type="string", description="CNPJ ou CPF do cliente"),
-                 *                 @OA\Property(property="nome", type="string", description="Nome completo ou razão social do cliente"),
-                 *                 @OA\Property(property="nome_fantasia", type="string", description="Nome fantasia do cliente, se aplicável"),
-                 *                 @OA\Property(property="uf", type="string", description="Unidade federativa (estado) do cliente"),
-                 *                 @OA\Property(property="cidade", type="string", description="Cidade do cliente"),
-                 *                 @OA\Property(property="representante", type="string", description="Representante associado ao cliente"),
-                 *                 @OA\Property(property="situacao", type="string", description="Situação do cliente (ativo/inativo)"),
-                 *                 @OA\Property(property="created_at", type="string", description="Data de criação do registro"),
-                 *                 @OA\Property(property="updated_at", type="string", description="Data de atualização do registro")
+     *                 @OA\Property(property="id", type="integer", description="Identificador único de cada cliente", example=1),
+                        @OA\Property(property="cnpj_cpf", type="string", description="CNPJ ou CPF do cliente", example="example"),
+                        @OA\Property(property="nome", type="string", description="Nome completo ou razão social do cliente", example="example"),
+                        @OA\Property(property="nome_fantasia", type="string", description="Nome fantasia do cliente, se aplicável", example="example"),
+                        @OA\Property(property="uf", type="string", description="Unidade federativa (estado) do cliente", example="example"),
+                        @OA\Property(property="cidade", type="string", description="Cidade do cliente", example="example"),
+                        @OA\Property(property="representante", type="string", description="Representante associado ao cliente", example="example"),
+                        @OA\Property(property="situacao", type="string", description="Situação do cliente (ativo/inativo)", example="example"),
+                        @OA\Property(property="created_at", type="string", description="Data de criação do registro", example="2022-01-01 00:00:00"),
+                        @OA\Property(property="updated_at", type="string", description="Data de atualização do registro", example="2022-01-01 00:00:00")
      *             }
      *         )
      *     ),
@@ -111,13 +113,14 @@ class ClienteController extends Controller
 
     /**
      * @OA\Delete(
-     *     path="/api/clientes/{id}",
+     *     path="/api/v2/clientes/{id}",
      *     summary="Delete a cliente",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
-     *         @OA\Schema(type="integer")
+     *         @OA\Schema(type="integer"),
+     *         description="The ID of the cliente"
      *     ),
      *     @OA\Response(response="204", description="Delete a cliente")
      * )

@@ -13,11 +13,11 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/clientes": {
+        "/api/v2/clientes": {
             "get": {
                 "summary": "Get all clientes",
                 "description": "Tabela que armazena informações dos clientes",
-                "operationId": "de55d50d1b708d9e5c63ee3f8fe8f54a",
+                "operationId": "43ccca345bfd83280de0dc9ac9545e9e",
                 "responses": {
                     "200": {
                         "description": "Get all clientes"
@@ -26,7 +26,7 @@
             },
             "post": {
                 "summary": "Create a new cliente",
-                "operationId": "4ac6cdfa8d6c188fa2cb4f3263d4318a",
+                "operationId": "a57fdcd0f539a4c2e936586ccc8b1a42",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -35,43 +35,53 @@
                                 "properties": {
                                     "id": {
                                         "description": "Identificador único de cada cliente",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "cnpj_cpf": {
                                         "description": "CNPJ ou CPF do cliente",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "nome": {
                                         "description": "Nome completo ou razão social do cliente",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "nome_fantasia": {
                                         "description": "Nome fantasia do cliente, se aplicável",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "uf": {
                                         "description": "Unidade federativa (estado) do cliente",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "cidade": {
                                         "description": "Cidade do cliente",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "representante": {
                                         "description": "Representante associado ao cliente",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "situacao": {
                                         "description": "Situação do cliente (ativo/inativo)",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "created_at": {
                                         "description": "Data de criação do registro",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "2022-01-01 00:00:00"
                                     },
                                     "updated_at": {
                                         "description": "Data de atualização do registro",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "2022-01-01 00:00:00"
                                     }
                                 },
                                 "type": "object"
@@ -86,14 +96,15 @@
                 }
             }
         },
-        "/api/clientes/{id}": {
+        "/api/v2/clientes/{id}": {
             "get": {
                 "summary": "Get a cliente by ID",
-                "operationId": "0d3826d79390929601421b5810b61231",
+                "operationId": "457fc12be6a9ce35faaa8f8268b0137c",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
+                        "description": "The ID of the cliente",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -108,11 +119,12 @@
             },
             "put": {
                 "summary": "Update a cliente",
-                "operationId": "74956b09f3ea120b5dd531c73776ca11",
+                "operationId": "af175555811824a382b5236705b23df7",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
+                        "description": "The ID of the cliente",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -127,43 +139,53 @@
                                 "properties": {
                                     "id": {
                                         "description": "Identificador único de cada cliente",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "cnpj_cpf": {
                                         "description": "CNPJ ou CPF do cliente",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "nome": {
                                         "description": "Nome completo ou razão social do cliente",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "nome_fantasia": {
                                         "description": "Nome fantasia do cliente, se aplicável",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "uf": {
                                         "description": "Unidade federativa (estado) do cliente",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "cidade": {
                                         "description": "Cidade do cliente",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "representante": {
                                         "description": "Representante associado ao cliente",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "situacao": {
                                         "description": "Situação do cliente (ativo/inativo)",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "created_at": {
                                         "description": "Data de criação do registro",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "2022-01-01 00:00:00"
                                     },
                                     "updated_at": {
                                         "description": "Data de atualização do registro",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "2022-01-01 00:00:00"
                                     }
                                 },
                                 "type": "object"
@@ -179,11 +201,12 @@
             },
             "delete": {
                 "summary": "Delete a cliente",
-                "operationId": "d15e304c609752c9f409ab81072fb52e",
+                "operationId": "c936998f9436eb6ff37973459f8a868b",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
+                        "description": "The ID of the cliente",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -197,11 +220,11 @@
                 }
             }
         },
-        "/api/estoques": {
+        "/api/v2/estoques": {
             "get": {
                 "summary": "Get all estoques",
                 "description": "Tabela que armazena informações sobre os itens no estoque",
-                "operationId": "337a01fe45fe0a62077e6e63b04dd8b7",
+                "operationId": "bab36cd6b39a748444c62adcc54b393c",
                 "responses": {
                     "200": {
                         "description": "Get all estoques"
@@ -210,7 +233,7 @@
             },
             "post": {
                 "summary": "Create a new estoque",
-                "operationId": "eb554df656d65a2e11c025030b323cad",
+                "operationId": "c0c982b1c4c723f90dde900747ef13e7",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -219,27 +242,33 @@
                                 "properties": {
                                     "id": {
                                         "description": "Identificador único de cada item no estoque",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "ref_sistema": {
                                         "description": "Referência do sistema para o item",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "ncm": {
                                         "description": "Código NCM (Nomenclatura Comum do Mercosul) do item",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "produto": {
                                         "description": "Descrição detalhada do produto",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "created_at": {
                                         "description": "Data de criação do registro",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "2022-01-01 00:00:00"
                                     },
                                     "updated_at": {
                                         "description": "Data de atualização do registro",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "2022-01-01 00:00:00"
                                     }
                                 },
                                 "type": "object"
@@ -254,14 +283,15 @@
                 }
             }
         },
-        "/api/estoques/{id}": {
+        "/api/v2/estoques/{id}": {
             "get": {
                 "summary": "Get a estoque by ID",
-                "operationId": "95d8a753d5c7c2585cd4104fe0686426",
+                "operationId": "6cc6366fb1750ca1a2163e6c692e4a8e",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
+                        "description": "The ID of the estoque",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -276,11 +306,12 @@
             },
             "put": {
                 "summary": "Update a estoque",
-                "operationId": "13d439f51b47d3855f254989b1cf269f",
+                "operationId": "5d69a5882fce79872147923bc035b546",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
+                        "description": "The ID of the estoque",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -295,27 +326,33 @@
                                 "properties": {
                                     "id": {
                                         "description": "Identificador único de cada item no estoque",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "ref_sistema": {
                                         "description": "Referência do sistema para o item",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "ncm": {
                                         "description": "Código NCM (Nomenclatura Comum do Mercosul) do item",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "produto": {
                                         "description": "Descrição detalhada do produto",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "created_at": {
                                         "description": "Data de criação do registro",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "2022-01-01 00:00:00"
                                     },
                                     "updated_at": {
                                         "description": "Data de atualização do registro",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "2022-01-01 00:00:00"
                                     }
                                 },
                                 "type": "object"
@@ -331,11 +368,12 @@
             },
             "delete": {
                 "summary": "Delete a estoque",
-                "operationId": "6a4f37d08db849357d14311aa0e8c184",
+                "operationId": "eadd57d9170053395d6b58c6445e2583",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
+                        "description": "The ID of the estoque",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -1627,11 +1665,11 @@
                 }
             }
         },
-        "/api/rastreabilidades": {
+        "/api/v2/rastreabilidades": {
             "get": {
                 "summary": "Get all rastreabilidades",
                 "description": "Tabela que armazena a rastreabilidade dos produtos",
-                "operationId": "516132bc62644eda1e0de607407382c3",
+                "operationId": "4d468a73d2e88bd43d12a21d4afed8eb",
                 "responses": {
                     "200": {
                         "description": "Get all rastreabilidades"
@@ -1640,7 +1678,7 @@
             },
             "post": {
                 "summary": "Create a new rastreabilidade",
-                "operationId": "6c0a327a79f300507d1942dd629fbab6",
+                "operationId": "8130f8abff9dd76befacfd038d790b42",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1649,83 +1687,103 @@
                                 "properties": {
                                     "id": {
                                         "description": "Identificador único para rastreabilidade de cada produto",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "numero_serie": {
                                         "description": "Número de série do produto",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "data_geracao": {
                                         "description": "Data de geração do produto ou registro",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "2022-01-01"
                                     },
                                     "responsavel_criacao": {
                                         "description": "Responsável pela criação do produto ou registro",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "cliente_id": {
                                         "description": "Identificador do cliente relacionado (FK para clientes)",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "estoque_id": {
                                         "description": "Identificador do item no estoque relacionado (FK para estoque)",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "pv": {
                                         "description": "PV associado ao produto",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "op": {
                                         "description": "Ordem de produção associada ao produto",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "codigo_net": {
                                         "description": "Código NET do produto",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "ref_sistema": {
                                         "description": "Referência do sistema para o produto",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "produto": {
                                         "description": "Descrição do produto",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "obra_alocada": {
                                         "description": "Obra onde o produto foi alocado",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "n_fatura": {
                                         "description": "Número da fatura associada ao produto",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "data_enviado": {
                                         "description": "Data de envio do produto",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "2022-01-01"
                                     },
                                     "garantia_dias": {
                                         "description": "Número de dias de garantia do produto",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "expira_garantia": {
                                         "description": "Data de expiração da garantia",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "2022-01-01"
                                     },
                                     "status_garantia": {
                                         "description": "Status atual da garantia do produto",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "condicao_garantia": {
                                         "description": "Condições específicas da garantia",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "created_at": {
                                         "description": "Data de criação do registro",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "2022-01-01 00:00:00"
                                     },
                                     "updated_at": {
                                         "description": "Data de atualização do registro",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "2022-01-01 00:00:00"
                                     }
                                 },
                                 "type": "object"
@@ -1740,14 +1798,15 @@
                 }
             }
         },
-        "/api/rastreabilidades/{id}": {
+        "/api/v2/rastreabilidades/{id}": {
             "get": {
                 "summary": "Get a rastreabilidade by ID",
-                "operationId": "db4bf4d21e450c09ee41c6b4556422ab",
+                "operationId": "73db6b6708c0046d67ce7a09e8971b30",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
+                        "description": "The ID of the rastreabilidade",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -1762,11 +1821,12 @@
             },
             "put": {
                 "summary": "Update a rastreabilidade",
-                "operationId": "bf6ea2910ab54e85356a25df883079e4",
+                "operationId": "b4d045060fe38253555ca5f972519596",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
+                        "description": "The ID of the rastreabilidade",
                         "required": true,
                         "schema": {
                             "type": "integer"
@@ -1781,83 +1841,103 @@
                                 "properties": {
                                     "id": {
                                         "description": "Identificador único para rastreabilidade de cada produto",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "numero_serie": {
                                         "description": "Número de série do produto",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "data_geracao": {
                                         "description": "Data de geração do produto ou registro",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "2022-01-01"
                                     },
                                     "responsavel_criacao": {
                                         "description": "Responsável pela criação do produto ou registro",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "cliente_id": {
                                         "description": "Identificador do cliente relacionado (FK para clientes)",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "estoque_id": {
                                         "description": "Identificador do item no estoque relacionado (FK para estoque)",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "pv": {
                                         "description": "PV associado ao produto",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "op": {
                                         "description": "Ordem de produção associada ao produto",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "codigo_net": {
                                         "description": "Código NET do produto",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "ref_sistema": {
                                         "description": "Referência do sistema para o produto",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "produto": {
                                         "description": "Descrição do produto",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "obra_alocada": {
                                         "description": "Obra onde o produto foi alocado",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "n_fatura": {
                                         "description": "Número da fatura associada ao produto",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "data_enviado": {
                                         "description": "Data de envio do produto",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "2022-01-01"
                                     },
                                     "garantia_dias": {
                                         "description": "Número de dias de garantia do produto",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "expira_garantia": {
                                         "description": "Data de expiração da garantia",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "2022-01-01"
                                     },
                                     "status_garantia": {
                                         "description": "Status atual da garantia do produto",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "condicao_garantia": {
                                         "description": "Condições específicas da garantia",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "example"
                                     },
                                     "created_at": {
                                         "description": "Data de criação do registro",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "2022-01-01 00:00:00"
                                     },
                                     "updated_at": {
                                         "description": "Data de atualização do registro",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "2022-01-01 00:00:00"
                                     }
                                 },
                                 "type": "object"
@@ -1873,11 +1953,12 @@
             },
             "delete": {
                 "summary": "Delete a rastreabilidade",
-                "operationId": "410ec4478f94ee96b93c556ed11be3f4",
+                "operationId": "e358570c983c4d6605eb42b94aaaf918",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
+                        "description": "The ID of the rastreabilidade",
                         "required": true,
                         "schema": {
                             "type": "integer"

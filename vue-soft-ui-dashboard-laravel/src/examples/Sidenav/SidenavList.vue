@@ -9,16 +9,17 @@
           class="text-xs ps-4 text-uppercase font-weight-bolder opacity-6"
           :class="this.$store.state.isRTL ? 'me-4' : 'ms-2'"
         >
-          EXAMPLES (API)
+          Gestão do Sistema
         </h6>
       </li>
-      <!-- <li class="nav-item">
+      <!--
+      <li class="nav-item">
         <sidenav-collapse navText="Login" :to="{ name: 'Login' }">
           <template #icon>
             <document />
           </template>
         </sidenav-collapse>
-      </li>
+      </li> 
       <li class="nav-item">
         <sidenav-collapse navText="Register" :to="{ name: 'Register' }">
           <template #icon>
@@ -27,14 +28,14 @@
         </sidenav-collapse>
       </li> -->
       <li class="nav-item">
-        <sidenav-collapse navText="User Profile" :to="{ name: 'Profile' }">
+        <sidenav-collapse navText="Dados Pessoais" :to="{ name: 'Profile' }">
           <template #icon>
             <customer-support />
           </template>
         </sidenav-collapse>
       </li>
       <li class="nav-item">
-        <sidenav-collapse navText="User Management" :to="{ name: 'Users' }">
+        <sidenav-collapse navText="Usuários" :to="{ name: 'Users' }">
           <template #icon>
             <switches />
           </template>
@@ -45,30 +46,33 @@
           class="text-xs ps-4 text-uppercase font-weight-bolder opacity-6"
           :class="this.$store.state.isRTL ? 'me-4' : 'ms-2'"
         >
-          TEMPLATES
+          Sistemas
         </h6>
       </li>
+      
       <li class="nav-item">
-        <sidenav-collapse navText="Dashboard" :to="{ name: 'Dashboard' }">
+        <sidenav-collapse navText="Clientes" :to="{ name: 'Clientes' }">
           <template #icon>
             <shop />
           </template>
         </sidenav-collapse>
       </li>
+      <!--
       <li class="nav-item">
-        <sidenav-collapse navText="Tables" :to="{ name: 'Tables' }">
+        <sidenav-collapse navText="Estoque" :to="{ name: 'Estoque' }">
           <template #icon>
             <office />
           </template>
         </sidenav-collapse>
       </li>
       <li class="nav-item">
-        <sidenav-collapse navText="Billing" :to="{ name: 'Billing' }">
+        <sidenav-collapse navText="Rastreabilidade" :to="{ name: 'Rastreabilidade' }">
           <template #icon>
             <credit-card />
           </template>
         </sidenav-collapse>
       </li>
+      -->
 
       <li class="nav-item">
         <sidenav-collapse
@@ -80,6 +84,7 @@
           </template>
         </sidenav-collapse>
       </li>
+      
       <li class="nav-item">
         <sidenav-collapse navText="RTL" :to="{ name: 'Rtl' }">
           <template #icon>
@@ -101,6 +106,7 @@
           </template>
         </sidenav-collapse>
       </li>
+      
       <li class="nav-item">
         <sidenav-collapse navText="Sign Up" :to="{ name: 'Sign Up' }">
           <template #icon>
@@ -108,6 +114,7 @@
           </template>
         </sidenav-collapse>
       </li>
+      
     </ul>
   </div>
   <div class="pt-3 mx-3 mt-3 sidenav-footer">
@@ -130,9 +137,6 @@
 <script>
 import SidenavCollapse from "./SidenavCollapse.vue";
 import SidenavCard from "./SidenavCard.vue";
-import Shop from "../../components/Icon/Shop.vue";
-import Office from "../../components/Icon/Office.vue";
-import CreditCard from "../../components/Icon/CreditCard.vue";
 import Box3d from "../../components/Icon/Box3d.vue";
 import CustomerSupport from "../../components/Icon/CustomerSupport.vue";
 import Switches from "../../components/Icon/Switches.vue";
@@ -147,17 +151,14 @@ export default {
   },
   data() {
     return {
-      title: "Soft UI Dashboard PRO",
+      title: "TekManager",
       controls: "dashboardsExamples",
       isActive: "active",
     };
   },
   components: {
     SidenavCollapse,
-    SidenavCard,
-    Shop,
-    Office,
-    CreditCard,
+    SidenavCard,   
     Box3d,
     CustomerSupport,
     Switches,

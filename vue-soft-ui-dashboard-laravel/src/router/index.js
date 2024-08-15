@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Dashboard from "@/views/Dashboard.vue";
+import Clientes from "@/views/Clientes.vue";
 import Tables from "@/views/Tables.vue";
 import Billing from "@/views/Billing.vue";
 import VirtualReality from "@/views/VirtualReality.vue";
@@ -33,6 +34,11 @@ function middlewarePipeline(context, middleware, index) {
 
 
 const routes = [
+  {
+    path: '/clientes',
+    name: 'Clientes',
+    component: Clientes
+  },
   {
     path: "/",
     name: "/",

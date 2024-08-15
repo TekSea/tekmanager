@@ -9,8 +9,8 @@ use Illuminate\Support\Str;
 
 class GenerateControllers extends Command
 {
-    protected $signature = 'generate:controllers';
-    protected $description = 'Generate resource controllers for all models';
+    protected $signature = 'generate:controllers {tables?*}';
+    protected $description = 'Generate resource controllers for specific models';
 
     public function __construct()
     {
@@ -19,20 +19,25 @@ class GenerateControllers extends Command
 
     public function handle()
     {
-        $modelPath = app_path('Models');
-        $files = File::files($modelPath);
+        $tables = $this->argument('tables');
+
+        if (empty($tables)) {
+            $this->error("No tables specified. Please provide the tables you want to generate controllers for.");
+            return;
+        }
+
         $routeDeclarations = '';
         $controllerImports = '';
 
-        foreach ($files as $file) {
-            $modelName = pathinfo($file, PATHINFO_FILENAME);
+        foreach ($tables as $tableName) {
+            $modelName = ucfirst(Str::camel(Str::singular($tableName)));
             $controllerName = $modelName . 'Controller';
             $this->info("Generating controller for model: $modelName");
 
             $this->addCrudLogicToController($controllerName, $modelName);
 
             // Generate route declaration
-            $routeDeclarations .= "Route::apiResource('" . Str::snake($modelName) . "s', " . $controllerName . "::class);\n";
+            $routeDeclarations .= "Route::apiResource('v2/" . Str::snake($modelName) . "s', " . $controllerName . "::class);\n";
             // Generate controller import
             $controllerImports .= "use App\Http\Controllers\\{$controllerName};\n";
         }
@@ -40,7 +45,7 @@ class GenerateControllers extends Command
         // Update routes and imports in api.php file
         $this->updateApiFile($controllerImports, $routeDeclarations);
 
-        $this->info('All controllers and routes have been generated successfully.');
+        $this->info('Selected controllers and routes have been generated successfully.');
     }
 
     protected function addCrudLogicToController($controllerName, $modelName)
@@ -58,13 +63,14 @@ class GenerateControllers extends Command
 
         foreach ($columns as $column) {
             $description = $column->Comment ? "description=\"{$column->Comment}\"" : "";
-            $columnDefinitions[] = "@OA\Property(property=\"{$column->Field}\", type=\"{$this->getSwaggerType($column->Type)}\", $description)";
+            $example = $this->getExampleValue($column->Type);
+            $columnDefinitions[] = "@OA\Property(property=\"{$column->Field}\", type=\"{$this->getSwaggerType($column->Type)}\", $description, example=$example)";
             if ($column->Key == 'PRI') {
                 $primaryKey = $column->Field;
             }
         }
 
-        $swaggerProperties = implode(",\n                 *                 ", $columnDefinitions);
+        $swaggerProperties = implode(",\n                        ", $columnDefinitions);
 
         $controllerContent = <<<EOD
         <?php
@@ -78,7 +84,7 @@ class GenerateControllers extends Command
         {
             /**
              * @OA\Get(
-             *     path="/api/{$modelVariable}s",
+             *     path="/api/v2/{$modelVariable}s",
              *     summary="Get all {$modelVariable}s",
              *     description="$tableComment",
              *     @OA\Response(response="200", description="Get all {$modelVariable}s")
@@ -92,7 +98,7 @@ class GenerateControllers extends Command
 
             /**
              * @OA\Post(
-             *     path="/api/{$modelVariable}s",
+             *     path="/api/v2/{$modelVariable}s",
              *     summary="Create a new {$modelVariable}",
              *     @OA\RequestBody(
              *         required=true,
@@ -114,13 +120,14 @@ class GenerateControllers extends Command
 
             /**
              * @OA\Get(
-             *     path="/api/{$modelVariable}s/{id}",
+             *     path="/api/v2/{$modelVariable}s/{id}",
              *     summary="Get a {$modelVariable} by ID",
              *     @OA\Parameter(
              *         name="id",
              *         in="path",
              *         required=true,
-             *         @OA\Schema(type="integer")
+             *         @OA\Schema(type="integer"),
+             *         description="The ID of the {$modelVariable}"
              *     ),
              *     @OA\Response(response="200", description="Get a {$modelVariable} by ID")
              * )
@@ -133,13 +140,14 @@ class GenerateControllers extends Command
 
             /**
              * @OA\Put(
-             *     path="/api/{$modelVariable}s/{id}",
+             *     path="/api/v2/{$modelVariable}s/{id}",
              *     summary="Update a {$modelVariable}",
              *     @OA\Parameter(
              *         name="id",
              *         in="path",
              *         required=true,
-             *         @OA\Schema(type="integer")
+             *         @OA\Schema(type="integer"),
+             *         description="The ID of the {$modelVariable}"
              *     ),
              *     @OA\RequestBody(
              *         required=true,
@@ -162,13 +170,14 @@ class GenerateControllers extends Command
 
             /**
              * @OA\Delete(
-             *     path="/api/{$modelVariable}s/{id}",
+             *     path="/api/v2/{$modelVariable}s/{id}",
              *     summary="Delete a {$modelVariable}",
              *     @OA\Parameter(
              *         name="id",
              *         in="path",
              *         required=true,
-             *         @OA\Schema(type="integer")
+             *         @OA\Schema(type="integer"),
+             *         description="The ID of the {$modelVariable}"
              *     ),
              *     @OA\Response(response="204", description="Delete a {$modelVariable}")
              * )
@@ -203,6 +212,23 @@ class GenerateControllers extends Command
         }
 
         return $type;
+    }
+
+    protected function getExampleValue($columnType)
+    {
+        if (strpos($columnType, 'int') !== false) {
+            return 1;
+        } elseif (strpos($columnType, 'float') !== false || strpos($columnType, 'double') !== false || strpos($columnType, 'decimal') !== false) {
+            return 1.0;
+        } elseif (strpos($columnType, 'bool') !== false) {
+            return true;
+        } elseif (strpos($columnType, 'date') !== false) {
+            return "\"2022-01-01\"";
+        } elseif (strpos($columnType, 'timestamp') !== false) {
+            return "\"2022-01-01 00:00:00\"";
+        } else {
+            return "\"example\"";
+        }
     }
 
     protected function updateApiFile($controllerImports, $routeDeclarations)

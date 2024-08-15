@@ -9,8 +9,8 @@ use Illuminate\Support\Str;
 
 class GenerateModels extends Command
 {
-    protected $signature = 'generate:models';
-    protected $description = 'Generate Eloquent models for all tables';
+    protected $signature = 'generate:models {tables?*}';
+    protected $description = 'Generate Eloquent models for specific tables';
 
     public function __construct()
     {
@@ -19,11 +19,16 @@ class GenerateModels extends Command
 
     public function handle()
     {
-        $tables = DB::select('SHOW TABLES');
+        $tables = $this->argument('tables');
+
+        if (empty($tables)) {
+            $this->error("No tables specified. Please provide the tables you want to generate models for.");
+            return;
+        }
+
         $tableKey = 'Tables_in_' . env('DB_DATABASE');
 
-        foreach ($tables as $table) {
-            $tableName = $table->$tableKey;
+        foreach ($tables as $tableName) {
             $modelName = ucfirst(Str::camel(Str::singular($tableName)));
             $this->info("Generating model for table: $tableName");
 
@@ -35,7 +40,7 @@ class GenerateModels extends Command
             $this->customizeModel($modelPath, $tableName);
         }
 
-        $this->info('All models have been generated successfully.');
+        $this->info('Selected models have been generated successfully.');
     }
 
     protected function generateModel($tableName, $modelName)
