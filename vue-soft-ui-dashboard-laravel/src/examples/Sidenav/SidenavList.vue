@@ -65,7 +65,7 @@
           </template>
         </sidenav-collapse>
       </li>
-      <!--
+      
       <li class="nav-item">
         <sidenav-collapse navText="Rastreabilidade" :to="{ name: 'Rastreabilidade' }">
           <template #icon>
@@ -73,7 +73,7 @@
           </template>
         </sidenav-collapse>
       </li>
-      -->
+      
 
       
     </ul>

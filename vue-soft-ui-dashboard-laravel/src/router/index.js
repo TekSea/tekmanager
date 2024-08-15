@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Dashboard from "@/views/Dashboard.vue";
 import Clientes from "@/views/Clientes.vue";
 import Estoques from "@/views/Estoques.vue";
+import Rastreabilidade from '../views/Rastreabilidade.vue';
 import Tables from "@/views/Tables.vue";
 import Billing from "@/views/Billing.vue";
 import VirtualReality from "@/views/VirtualReality.vue";
@@ -44,6 +45,11 @@ const routes = [
     path: '/estoques',
     name: 'Estoques',
     component: Estoques,
+  },
+  {
+    path: '/rastreabilidades',
+    name: 'Rastreabilidade',
+    component: Rastreabilidade,
   },
   {
     path: "/",
