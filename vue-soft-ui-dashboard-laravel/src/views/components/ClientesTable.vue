@@ -1,13 +1,27 @@
 <template>
   <div class="container">
-    <div class="row">
-      <div class="col-12">
+    <div class="row mb-3">
+      <div class="col-md-6">
         <input
           type="text"
           v-model="searchQuery"
-          class="form-control mb-3"
+          class="form-control"
           placeholder="Buscar..."
         />
+      </div>
+      <div class="col-md-6 text-end">
+        <label for="itemsPerPageSelect" class="me-2">Registros por página:</label>
+        <select
+          id="itemsPerPageSelect"
+          v-model.number="itemsPerPage"
+          class="form-select d-inline-block w-auto"
+        >
+          <option value="10">10</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="1000">1000</option>
+          <option :value="filteredClientes.length">Todos</option>
+        </select>
       </div>
     </div>
     <div class="table-responsive">
@@ -24,7 +38,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="cliente in filteredClientes" :key="cliente.id">
+          <tr v-for="cliente in paginatedClientes" :key="cliente.id">
             <td>{{ cliente.id }}</td>
             <td>{{ cliente.nome }}</td>
             <td>{{ cliente.nome_fantasia }}</td>
@@ -40,6 +54,23 @@
           </tr>
         </tbody>
       </table>
+    </div>
+    <div class="pagination-container">
+      <button
+        class="btn btn-primary"
+        :disabled="currentPage === 1"
+        @click="prevPage"
+      >
+        Anterior
+      </button>
+      <span>Página {{ currentPage }} de {{ totalPages }}</span>
+      <button
+        class="btn btn-primary"
+        :disabled="currentPage === totalPages"
+        @click="nextPage"
+      >
+        Próxima
+      </button>
     </div>
   </div>
 </template>
@@ -58,20 +89,13 @@ export default {
       currentSort: 'id',
       currentSortDir: 'asc',
       searchQuery: '',
+      currentPage: 1,
+      itemsPerPage: 10, // Número de itens por página padrão
     };
   },
   computed: {
-    sortedClientes() {
-      return [...this.clientes].sort((a, b) => {
-        let modifier = 1;
-        if (this.currentSortDir === 'desc') modifier = -1;
-        if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
-        if (a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
-        return 0;
-      });
-    },
     filteredClientes() {
-      return this.sortedClientes.filter(cliente => {
+      return this.clientes.filter(cliente => {
         return (
           cliente.nome.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
           cliente.nome_fantasia.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
@@ -81,6 +105,23 @@ export default {
           cliente.situacao.toLowerCase().includes(this.searchQuery.toLowerCase())
         );
       });
+    },
+    sortedClientes() {
+      return [...this.filteredClientes].sort((a, b) => {
+        let modifier = 1;
+        if (this.currentSortDir === 'desc') modifier = -1;
+        if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+        if (a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+        return 0;
+      });
+    },
+    paginatedClientes() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      return this.sortedClientes.slice(start, end);
+    },
+    totalPages() {
+      return Math.ceil(this.sortedClientes.length / this.itemsPerPage);
     },
   },
   methods: {
@@ -97,6 +138,19 @@ export default {
         return this.currentSortDir === 'asc' ? 'sorting-asc' : 'sorting-desc';
       }
       return 'sorting';
+    },
+    handleItemsPerPageChange() {
+      this.currentPage = 1; // Resetar para a primeira página quando o número de itens por página mudar
+    },
+    prevPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+      }
+    },
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+      }
     },
     getStatusClass(situacao) {
       switch (situacao.toLowerCase()) {
@@ -122,6 +176,21 @@ export default {
           return 'fas fa-question-circle';
       }
     },
+  },
+  watch: {
+    currentPage(newPage) {
+      if (newPage > this.totalPages) {
+        this.currentPage = this.totalPages;
+      } else if (newPage < 1) {
+        this.currentPage = 1;
+      }
+    },
+    itemsPerPage() {
+      this.handleItemsPerPageChange();
+    },
+    searchQuery() {
+      this.currentPage = 1; // Resetar para a primeira página ao realizar uma busca
+    }
   },
 };
 </script>
@@ -193,5 +262,24 @@ td {
 
 .form-control {
   max-width: 300px;
+  display: inline-block;
+  width: auto;
+}
+
+.form-select {
+  display: inline-block;
+  width: auto;
+  min-width: 150px; /* Aumenta a largura do seletor em 50% */
+}
+
+.pagination-container {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pagination-container button {
+  min-width: 100px;
 }
 </style>
