@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Dashboard from "@/views/Dashboard.vue";
 import Clientes from "@/views/Clientes.vue";
+import Home from "@/views/Home.vue";
 import Estoques from "@/views/Estoques.vue";
 import Rastreabilidade from '../views/Rastreabilidade.vue';
 import Tables from "@/views/Tables.vue";
@@ -54,7 +55,12 @@ const routes = [
   {
     path: "/",
     name: "/",
-    redirect: "/dashboard",
+    redirect: "/home",
+  },
+  {
+    path: "/home",
+    name: "Home",
+    component: Home,
   },
   {
     path: "/dashboard",

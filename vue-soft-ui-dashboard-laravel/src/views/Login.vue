@@ -174,7 +174,7 @@ export default {
       this.loading = true;
       try {
         await this.$store.dispatch("auth/login", this.user);
-        this.$router.push("/dashboard");
+        this.$router.push("/home");
       } catch (error) {
         showSwal.methods.showSwal({
           type: "error",
