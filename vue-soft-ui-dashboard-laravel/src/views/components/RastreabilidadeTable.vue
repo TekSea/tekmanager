@@ -1,173 +1,173 @@
 <template>
-    <div class="container">
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <input
-            type="text"
-            v-model="searchQuery"
-            class="form-control"
-            placeholder="Buscar..."
-          />
-        </div>
-        <div class="col-md-6 text-end">
-          <label for="itemsPerPageSelect" class="me-2">Registros por página:</label>
-          <select
-            id="itemsPerPageSelect"
-            v-model.number="itemsPerPage"
-            class="form-select d-inline-block w-auto"
-          >
-            <option value="10">10</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-            <option value="1000">1000</option>
-            <option :value="filteredRastreabilidade.length">Todos</option>
-          </select>
-        </div>
+  <div>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <input
+          type="text"
+          v-model="searchQuery"
+          class="form-control"
+          placeholder="Buscar..."
+        />
       </div>
-      <div class="table-responsive">
-        <table class="table align-items-center mb-0">
-          <thead>
-            <tr>
-              <th @click="sortTable('id')" :class="getSortClass('id')">ID</th>
-              <th @click="sortTable('numero_serie')" :class="getSortClass('numero_serie')">Número de Série</th>
-              <th @click="sortTable('data_geracao')" :class="getSortClass('data_geracao')">Data de Geração</th>
-              <th @click="sortTable('responsavel_criacao')" :class="getSortClass('responsavel_criacao')">Responsável</th>
-              <th @click="sortTable('cliente_id')" :class="getSortClass('cliente_id')">Cliente ID</th>
-              <th @click="sortTable('estoque_id')" :class="getSortClass('estoque_id')">Estoque ID</th>
-              <th @click="sortTable('pv')" :class="getSortClass('pv')">PV</th>
-              <th @click="sortTable('op')" :class="getSortClass('op')">OP</th>
-              <th @click="sortTable('codigo_net')" :class="getSortClass('codigo_net')">Código NET</th>
-              <th @click="sortTable('ref_sistema')" :class="getSortClass('ref_sistema')">Ref. Sistema</th>
-              <th @click="sortTable('produto')" :class="getSortClass('produto')">Produto</th>
-              <th @click="sortTable('obra_alocada')" :class="getSortClass('obra_alocada')">Obra Alocada</th>
-              <th @click="sortTable('n_fatura')" :class="getSortClass('n_fatura')">Nº Fatura</th>
-              <th @click="sortTable('data_enviado')" :class="getSortClass('data_enviado')">Data Enviado</th>
-              <th @click="sortTable('garantia_dias')" :class="getSortClass('garantia_dias')">Garantia (dias)</th>
-              <th @click="sortTable('expira_garantia')" :class="getSortClass('expira_garantia')">Expira Garantia</th>
-              <th @click="sortTable('status_garantia')" :class="getSortClass('status_garantia')">Status da Garantia</th>
-              <th @click="sortTable('condicao_garantia')" :class="getSortClass('condicao_garantia')">Condição da Garantia</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="item in paginatedRastreabilidade" :key="item.id">
-              <td>{{ item.id }}</td>
-              <td>{{ item.numero_serie }}</td>
-              <td>{{ item.data_geracao }}</td>
-              <td>{{ item.responsavel_criacao }}</td>
-              <td>{{ item.cliente_id }}</td>
-              <td>{{ item.estoque_id }}</td>
-              <td>{{ item.pv }}</td>
-              <td>{{ item.op }}</td>
-              <td>{{ item.codigo_net }}</td>
-              <td>{{ item.ref_sistema }}</td>
-              <td>{{ item.produto }}</td>
-              <td>{{ item.obra_alocada }}</td>
-              <td>{{ item.n_fatura }}</td>
-              <td>{{ item.data_enviado }}</td>
-              <td>{{ item.garantia_dias }}</td>
-              <td>{{ item.expira_garantia }}</td>
-              <td>{{ item.status_garantia }}</td>
-              <td>{{ item.condicao_garantia }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="pagination-container">
-        <button
-          class="btn btn-primary"
-          :disabled="currentPage === 1"
-          @click="prevPage"
+      <div class="col-md-6 text-end">
+        <label for="itemsPerPageSelect" class="me-2">Registros por página:</label>
+        <select
+          id="itemsPerPageSelect"
+          v-model.number="itemsPerPage"
+          class="form-select d-inline-block w-auto"
         >
-          Anterior
-        </button>
-        <span>Página {{ currentPage }} de {{ totalPages }}</span>
-        <button
-          class="btn btn-primary"
-          :disabled="currentPage === totalPages"
-          @click="nextPage"
-        >
-          Próxima
-        </button>
+          <option value="10">10</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="1000">1000</option>
+          <option :value="filteredRastreabilidades.length">Todos</option>
+        </select>
       </div>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    name: "RastreabilidadeTable",
-    props: {
-      rastreabilidade: {
-        type: Array,
-        required: true,
-      },
+    <div class="table-responsive">
+      <table id="rastreabilidade-list" ref="rastreabilidadeList" class="table table-flush">
+        <thead class="thead-light">
+          <tr>
+            <th @click="sortTable('numero_serie')" :class="getSortClass('numero_serie')">Número de Série</th>
+            <th @click="sortTable('data_geracao')" :class="getSortClass('data_geracao')">Data de Geração</th>
+            <th @click="sortTable('responsavel_criacao')" :class="getSortClass('responsavel_criacao')">Responsável</th>
+            <th @click="sortTable('cliente')" :class="getSortClass('cliente')">Cliente</th>
+            <th @click="sortTable('produto')" :class="getSortClass('produto')">Produto</th>
+            <th @click="sortTable('status_garantia')" :class="getSortClass('status_garantia')">Status da Garantia</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody class="text-sm">
+          <tr v-for="rastreabilidade in paginatedRastreabilidades" :key="rastreabilidade.id">
+            <td>{{ rastreabilidade.numero_serie }}</td>
+            <td>{{ rastreabilidade.data_geracao }}</td>
+            <td>{{ rastreabilidade.responsavel_criacao }}</td>
+            <td>{{ rastreabilidade.cliente }}</td>
+            <td>{{ rastreabilidade.produto }}</td>
+            <td>{{ rastreabilidade.status_garantia }}</td>
+            <td>
+              <a
+                @click="editRastreabilidade(rastreabilidade.id)"
+                class="actionButton cursor-pointer me-3"
+                data-bs-toggle="tooltip"
+                title="Editar Registro"
+              >
+                <i class="fas fa-edit text-secondary"></i>
+              </a>
+              <a
+                @click="deleteRastreabilidade(rastreabilidade.id)"
+                class="actionButton deleteButton cursor-pointer"
+                data-bs-toggle="tooltip"
+                title="Excluir Registro"
+              >
+                <i class="fas fa-trash text-secondary"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div
+      class="d-flex justify-content-center justify-content-sm-between flex-wrap"
+      style="padding: 24px 24px 0px"
+    >
+      <div>
+        <p>Mostrando {{ paginatedRastreabilidades.length }} de {{ filteredRastreabilidades.length }} registros</p>
+      </div>
+      <ul class="pagination pagination-success pagination-md">
+        <li class="page-item prev-page" :class="{ disabled: currentPage === 1 }">
+          <a class="page-link" @click="prevPage" aria-label="Previous">
+            <span aria-hidden="true">
+              <i class="fa fa-angle-left" aria-hidden="true"></i>
+            </span>
+          </a>
+        </li>
+        <li
+          v-for="page in visiblePages"
+          :key="page"
+          class="page-item"
+          :class="{ active: currentPage === page }"
+        >
+          <a
+            class="page-link"
+            @click="setPage(page)"
+            style="color: gray"
+          >
+            {{ page }}
+          </a>
+        </li>
+        <li v-if="showEllipsis && currentPage < totalPages" class="page-item">
+          <a class="page-link">...</a>
+        </li>
+        <li class="page-item next-page" :class="{ disabled: currentPage === totalPages }">
+          <a class="page-link" @click="nextPage" aria-label="Next">
+            <span aria-hidden="true">
+              <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "RastreabilidadeTable",
+  props: {
+    rastreabilidades: {
+      type: Array,
+      required: true,
     },
-    data() {
-      return {
-        currentSort: 'id',
-        currentSortDir: 'asc',
-        searchQuery: '',
-        currentPage: 1,
-        itemsPerPage: 10, // Número de itens por página padrão
-      };
+  },
+  data() {
+    return {
+      searchQuery: '',
+      currentPage: 1,
+      itemsPerPage: 10,
+      currentSort: 'numero_serie',
+      currentSortDir: 'asc',
+    };
+  },
+  computed: {
+    filteredRastreabilidades() {
+      return this.rastreabilidades.filter(rastreabilidade => {
+        const search = this.searchQuery.toLowerCase();
+        return (
+          (rastreabilidade.numero_serie && rastreabilidade.numero_serie.toString().includes(search)) ||
+          (rastreabilidade.data_geracao && rastreabilidade.data_geracao.toLowerCase().includes(search)) ||
+          (rastreabilidade.responsavel_criacao && rastreabilidade.responsavel_criacao.toLowerCase().includes(search)) ||
+          (rastreabilidade.cliente && rastreabilidade.cliente.includes(search)) ||
+          (rastreabilidade.produto && rastreabilidade.produto.includes(search)) ||
+          (rastreabilidade.status_garantia && rastreabilidade.status_garantia.toLowerCase().includes(search))
+        );
+      });
     },
-    computed: {
-      filteredRastreabilidade() {
-        return this.rastreabilidade.filter(item => {
-          const numeroSerie = item.numero_serie ? item.numero_serie.toString() : '';
-          const dataGeracao = item.data_geracao ? item.data_geracao.toString() : '';
-          const responsavelCriacao = item.responsavel_criacao ? item.responsavel_criacao.toLowerCase() : '';
-          const clienteId = item.cliente_id ? item.cliente_id.toString() : '';
-          const estoqueId = item.estoque_id ? item.estoque_id.toString() : '';
-          const pv = item.pv ? item.pv.toLowerCase() : '';
-          const op = item.op ? item.op.toLowerCase() : '';
-          const codigoNet = item.codigo_net ? item.codigo_net.toString() : '';
-          const refSistema = item.ref_sistema ? item.ref_sistema.toLowerCase() : '';
-          const produto = item.produto ? item.produto.toLowerCase() : '';
-          const obraAlocada = item.obra_alocada ? item.obra_alocada.toLowerCase() : '';
-          const nfatura = item.n_fatura ? item.n_fatura.toLowerCase() : '';
-          const dataEnviado = item.data_enviado ? item.data_enviado.toString() : '';
-          const garantiaDias = item.garantia_dias ? item.garantia_dias.toString() : '';
-          const expiraGarantia = item.expira_garantia ? item.expira_garantia.toString() : '';
-          const statusGarantia = item.status_garantia ? item.status_garantia.toLowerCase() : '';
-          const condicaoGarantia = item.condicao_garantia ? item.condicao_garantia.toLowerCase() : '';
-  
-          return (
-            numeroSerie.includes(this.searchQuery.toLowerCase()) ||
-            dataGeracao.includes(this.searchQuery.toLowerCase()) ||
-            responsavelCriacao.includes(this.searchQuery.toLowerCase()) ||
-            clienteId.includes(this.searchQuery.toLowerCase()) ||
-            estoqueId.includes(this.searchQuery.toLowerCase()) ||
-            pv.includes(this.searchQuery.toLowerCase()) ||
-            op.includes(this.searchQuery.toLowerCase()) ||
-            codigoNet.includes(this.searchQuery.toLowerCase()) ||
-            refSistema.includes(this.searchQuery.toLowerCase()) ||
-            produto.includes(this.searchQuery.toLowerCase()) ||
-            obraAlocada.includes(this.searchQuery.toLowerCase()) ||
-            nfatura.includes(this.searchQuery.toLowerCase()) ||
-            dataEnviado.includes(this.searchQuery.toLowerCase()) ||
-            garantiaDias.includes(this.searchQuery.toLowerCase()) ||
-            expiraGarantia.includes(this.searchQuery.toLowerCase()) ||
-            statusGarantia.includes(this.searchQuery.toLowerCase()) ||
-            condicaoGarantia.includes(this.searchQuery.toLowerCase())
-          );
-        });
-      },
-      sortedRastreabilidade() {
-        return [...this.filteredRastreabilidade].sort((a, b) => {
-          let modifier = 1;
-          if (this.currentSortDir === 'desc') modifier = -1;
-          if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
-          if (a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
-          return 0;
-        });
-      },
-      paginatedRastreabilidade() {
-        const start = (this.currentPage - 1) * this.itemsPerPage;
-        const end = start + this.itemsPerPage;
-        return this.sortedRastreabilidade.slice(start, end);
-      },
-      totalPages() {
-      return Math.ceil(this.sortedRastreabilidade.length / this.itemsPerPage);
+    sortedRastreabilidades() {
+      return [...this.filteredRastreabilidades].sort((a, b) => {
+        let modifier = 1;
+        if (this.currentSortDir === 'desc') modifier = -1;
+        if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+        if (a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+        return 0;
+      });
+    },
+    paginatedRastreabilidades() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      return this.sortedRastreabilidades.slice(start, end);
+    },
+    totalPages() {
+      return Math.ceil(this.filteredRastreabilidades.length / this.itemsPerPage);
+    },
+    visiblePages() {
+      const maxVisiblePages = 5;
+      const startPage = Math.max(1, this.currentPage - Math.floor(maxVisiblePages / 2));
+      const endPage = Math.min(startPage + maxVisiblePages - 1, this.totalPages);
+      return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+    },
+    showEllipsis() {
+      return this.totalPages > this.visiblePages.length;
     },
   },
   methods: {
@@ -185,8 +185,8 @@
       }
       return 'sorting';
     },
-    handleItemsPerPageChange() {
-      this.currentPage = 1; // Resetar para a primeira página quando o número de itens por página mudar
+    setPage(page) {
+      this.currentPage = page;
     },
     prevPage() {
       if (this.currentPage > 1) {
@@ -198,21 +198,14 @@
         this.currentPage++;
       }
     },
-  },
-  watch: {
-    currentPage(newPage) {
-      if (newPage > this.totalPages) {
-        this.currentPage = this.totalPages;
-      } else if (newPage < 1) {
-        this.currentPage = 1;
-      }
+    editRastreabilidade(id) {
+      // Lógica para editar o registro de rastreabilidade
+      console.log("Editar rastreabilidade:", id);
     },
-    itemsPerPage() {
-      this.handleItemsPerPageChange();
+    deleteRastreabilidade(id) {
+      // Lógica para excluir o registro de rastreabilidade
+      console.log("Excluir rastreabilidade:", id);
     },
-    searchQuery() {
-      this.currentPage = 1; // Resetar para a primeira página ao realizar uma busca
-    }
   },
 };
 </script>
@@ -224,39 +217,33 @@
   overflow-x: auto;
 }
 
-.table {
-  margin-bottom: 0;
+.card-body {
+  padding: 24px;
 }
 
-th {
-  background-color: #f8f9fa;
-  text-transform: uppercase;
-  font-weight: bold;
-  color: #6c757d;
-  border-bottom: 2px solid #dee2e6;
+.table thead th {
   cursor: pointer;
 }
 
-th.sorting-asc::after,
-th.sorting-desc::after {
+.table thead th.sorting-asc::after,
+.table thead th.sorting-desc::after {
   content: '';
   margin-left: 8px;
   border: solid transparent;
   border-width: 0 4px 4px 4px;
 }
 
-th.sorting-asc::after {
+.table thead th.sorting-asc::after {
   border-bottom-color: #6c757d;
 }
 
-th.sorting-desc::after {
+.table thead th.sorting-desc::after {
   border-width: 4px 4px 0 4px;
   border-top-color: #6c757d;
 }
 
 td {
-  padding: 16px;
-  border-bottom: 1px solid #dee2e6;
+  padding: 12px 24px !important;
 }
 
 .form-control {
@@ -268,7 +255,7 @@ td {
 .form-select {
   display: inline-block;
   width: auto;
-  min-width: 150px; /* Aumenta a largura do seletor em 50% */
+  min-width: 150px;
 }
 
 .pagination-container {
@@ -281,6 +268,14 @@ td {
 .pagination-container button {
   min-width: 100px;
 }
+
+.page-item .page-link {
+  color: #6c757d;
+}
+
+.page-item.active .page-link {
+  background-color: #007bff;
+  border-color: #007bff;
+}
 </style>
 
-  

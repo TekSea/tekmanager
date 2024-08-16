@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="row mb-3">
       <div class="col-md-6">
         <input
@@ -25,52 +25,90 @@
       </div>
     </div>
     <div class="table-responsive">
-      <table class="table align-items-center mb-0">
-        <thead>
+      <table id="clientes-list" ref="clientesList" class="table table-flush">
+        <thead class="thead-light">
           <tr>
-            <th @click="sortTable('id')" :class="getSortClass('id')">ID</th>
             <th @click="sortTable('nome')" :class="getSortClass('nome')">Nome</th>
+            <th @click="sortTable('cnpj_cpf')" :class="getSortClass('cnpj_cpf')">CNPJ/CPF</th>
             <th @click="sortTable('nome_fantasia')" :class="getSortClass('nome_fantasia')">Nome Fantasia</th>
             <th @click="sortTable('uf')" :class="getSortClass('uf')">UF</th>
             <th @click="sortTable('cidade')" :class="getSortClass('cidade')">Cidade</th>
             <th @click="sortTable('representante')" :class="getSortClass('representante')">Representante</th>
             <th @click="sortTable('situacao')" :class="getSortClass('situacao')">Situação</th>
+            <th>Ações</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="text-sm">
           <tr v-for="cliente in paginatedClientes" :key="cliente.id">
-            <td>{{ cliente.id }}</td>
             <td>{{ cliente.nome }}</td>
+            <td>{{ cliente.cnpj_cpf }}</td>
             <td>{{ cliente.nome_fantasia }}</td>
             <td>{{ cliente.uf }}</td>
             <td>{{ cliente.cidade }}</td>
             <td>{{ cliente.representante }}</td>
+            <td>{{ cliente.situacao }}</td>
             <td>
-              <span :class="getStatusClass(cliente.situacao)">
-                <i :class="getStatusIcon(cliente.situacao)"></i>
-                {{ cliente.situacao }}
-              </span>
+              <a
+                @click="editClient(cliente.id)"
+                class="actionButton cursor-pointer me-3"
+                data-bs-toggle="tooltip"
+                title="Editar Cliente"
+              >
+                <i class="fas fa-user-edit text-secondary"></i>
+              </a>
+              <a
+                @click="deleteClient(cliente.id)"
+                class="actionButton deleteButton cursor-pointer"
+                data-bs-toggle="tooltip"
+                title="Excluir Cliente"
+              >
+                <i class="fas fa-trash text-secondary"></i>
+              </a>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div class="pagination-container">
-      <button
-        class="btn btn-primary"
-        :disabled="currentPage === 1"
-        @click="prevPage"
-      >
-        Anterior
-      </button>
-      <span>Página {{ currentPage }} de {{ totalPages }}</span>
-      <button
-        class="btn btn-primary"
-        :disabled="currentPage === totalPages"
-        @click="nextPage"
-      >
-        Próxima
-      </button>
+    <div
+      class="d-flex justify-content-center justify-content-sm-between flex-wrap"
+      style="padding: 24px 24px 0px"
+    >
+      <div>
+        <p>Mostrando {{ paginatedClientes.length }} de {{ filteredClientes.length }} clientes</p>
+      </div>
+      <ul class="pagination pagination-success pagination-md">
+        <li class="page-item prev-page" :class="{ disabled: currentPage === 1 }">
+          <a class="page-link" @click="prevPage" aria-label="Previous">
+            <span aria-hidden="true">
+              <i class="fa fa-angle-left" aria-hidden="true"></i>
+            </span>
+          </a>
+        </li>
+        <li
+          v-for="page in visiblePages"
+          :key="page"
+          class="page-item"
+          :class="{ active: currentPage === page }"
+        >
+          <a
+            class="page-link"
+            @click="setPage(page)"
+            style="color: gray"
+          >
+            {{ page }}
+          </a>
+        </li>
+        <li v-if="showEllipsis && currentPage < totalPages" class="page-item">
+          <a class="page-link">...</a>
+        </li>
+        <li class="page-item next-page" :class="{ disabled: currentPage === totalPages }">
+          <a class="page-link" @click="nextPage" aria-label="Next">
+            <span aria-hidden="true">
+              <i class="fa fa-angle-right" aria-hidden="true"></i>
+            </span>
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -86,23 +124,25 @@ export default {
   },
   data() {
     return {
-      currentSort: 'id',
-      currentSortDir: 'asc',
       searchQuery: '',
       currentPage: 1,
-      itemsPerPage: 10, // Número de itens por página padrão
+      itemsPerPage: 10,
+      currentSort: 'nome',
+      currentSortDir: 'asc',
     };
   },
   computed: {
     filteredClientes() {
       return this.clientes.filter(cliente => {
+        const search = this.searchQuery.toLowerCase();
         return (
-          cliente.nome.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-          cliente.nome_fantasia.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-          cliente.uf.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-          cliente.cidade.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-          cliente.representante.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-          cliente.situacao.toLowerCase().includes(this.searchQuery.toLowerCase())
+          (cliente.nome && cliente.nome.toLowerCase().includes(search)) ||
+          (cliente.cnpj_cpf && cliente.cnpj_cpf.toLowerCase().includes(search)) ||
+          (cliente.nome_fantasia && cliente.nome_fantasia.toLowerCase().includes(search)) ||
+          (cliente.uf && cliente.uf.toLowerCase().includes(search)) ||
+          (cliente.cidade && cliente.cidade.toLowerCase().includes(search)) ||
+          (cliente.representante && cliente.representante.toLowerCase().includes(search)) ||
+          (cliente.situacao && cliente.situacao.toLowerCase().includes(search))
         );
       });
     },
@@ -121,7 +161,16 @@ export default {
       return this.sortedClientes.slice(start, end);
     },
     totalPages() {
-      return Math.ceil(this.sortedClientes.length / this.itemsPerPage);
+      return Math.ceil(this.filteredClientes.length / this.itemsPerPage);
+    },
+    visiblePages() {
+      const maxVisiblePages = 5;
+      const startPage = Math.max(1, this.currentPage - Math.floor(maxVisiblePages / 2));
+      const endPage = Math.min(startPage + maxVisiblePages - 1, this.totalPages);
+      return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+    },
+    showEllipsis() {
+      return this.totalPages > this.visiblePages.length;
     },
   },
   methods: {
@@ -139,8 +188,8 @@ export default {
       }
       return 'sorting';
     },
-    handleItemsPerPageChange() {
-      this.currentPage = 1; // Resetar para a primeira página quando o número de itens por página mudar
+    setPage(page) {
+      this.currentPage = page;
     },
     prevPage() {
       if (this.currentPage > 1) {
@@ -152,45 +201,14 @@ export default {
         this.currentPage++;
       }
     },
-    getStatusClass(situacao) {
-      switch (situacao.toLowerCase()) {
-        case 'ativo':
-          return 'text-success';
-        case 'inativo':
-          return 'text-danger';
-        case 'pendente':
-          return 'text-warning';
-        default:
-          return 'text-muted';
-      }
+    editClient(id) {
+      // Lógica para editar o cliente
+      console.log("Editar cliente:", id);
     },
-    getStatusIcon(situacao) {
-      switch (situacao.toLowerCase()) {
-        case 'ativo':
-          return 'fas fa-circle';
-        case 'inativo':
-          return 'fas fa-times-circle';
-        case 'pendente':
-          return 'fas fa-exclamation-circle';
-        default:
-          return 'fas fa-question-circle';
-      }
+    deleteClient(id) {
+      // Lógica para excluir o cliente
+      console.log("Excluir cliente:", id);
     },
-  },
-  watch: {
-    currentPage(newPage) {
-      if (newPage > this.totalPages) {
-        this.currentPage = this.totalPages;
-      } else if (newPage < 1) {
-        this.currentPage = 1;
-      }
-    },
-    itemsPerPage() {
-      this.handleItemsPerPageChange();
-    },
-    searchQuery() {
-      this.currentPage = 1; // Resetar para a primeira página ao realizar uma busca
-    }
   },
 };
 </script>
@@ -202,62 +220,33 @@ export default {
   overflow-x: auto;
 }
 
-.table {
-  margin-bottom: 0;
+.card-body {
+  padding: 24px;
 }
 
-th {
-  background-color: #f8f9fa;
-  text-transform: uppercase;
-  font-weight: bold;
-  color: #6c757d;
-  border-bottom: 2px solid #dee2e6;
+.table thead th {
   cursor: pointer;
 }
 
-th.sorting-asc::after,
-th.sorting-desc::after {
+.table thead th.sorting-asc::after,
+.table thead th.sorting-desc::after {
   content: '';
   margin-left: 8px;
   border: solid transparent;
   border-width: 0 4px 4px 4px;
 }
 
-th.sorting-asc::after {
+.table thead th.sorting-asc::after {
   border-bottom-color: #6c757d;
 }
 
-th.sorting-desc::after {
+.table thead th.sorting-desc::after {
   border-width: 4px 4px 0 4px;
   border-top-color: #6c757d;
 }
 
 td {
-  padding: 16px;
-  border-bottom: 1px solid #dee2e6;
-}
-
-.text-success {
-  color: #28a745 !important;
-}
-
-.text-danger {
-  color: #dc3545 !important;
-}
-
-.text-warning {
-  color: #ffc107 !important;
-}
-
-.text-muted {
-  color: #6c757d !important;
-}
-
-.fas.fa-circle,
-.fas.fa-times-circle,
-.fas.fa-exclamation-circle,
-.fas.fa-question-circle {
-  margin-right: 8px;
+  padding: 12px 24px !important;
 }
 
 .form-control {
@@ -269,7 +258,7 @@ td {
 .form-select {
   display: inline-block;
   width: auto;
-  min-width: 150px; /* Aumenta a largura do seletor em 50% */
+  min-width: 150px;
 }
 
 .pagination-container {
@@ -281,5 +270,14 @@ td {
 
 .pagination-container button {
   min-width: 100px;
+}
+
+.page-item .page-link {
+  color: #6c757d;
+}
+
+.page-item.active .page-link {
+  background-color: #007bff;
+  border-color: #007bff;
 }
 </style>

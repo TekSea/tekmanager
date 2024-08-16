@@ -2,7 +2,26 @@
   <div class="py-4 container-fluid">
     <div class="row">
       <div class="col-12">
-        <clientes-table :clientes="clientes" />
+        <div class="card">
+          <!-- Card header -->
+          <div class="pb-0 card-header">
+            <div class="d-lg-flex">
+              <div>
+                <h5 class="mb-0">Lista de Clientes</h5>
+              </div>
+              <div class="my-auto mt-4 ms-auto mt-lg-0">
+                <div class="my-auto ms-auto">
+                  <a @click="addClient" class="mb-0 btn bg-gradient-success btn-sm">
+                    +&nbsp; Novo Cliente
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="px-4 pb-4 card-body">
+            <clientes-table :clientes="clientes" />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -29,16 +48,17 @@ export default {
   },
   methods: {
     fetchClientes() {
-      console.log("Buscando clientes em:", API_URL + "clientes");
       axios
         .get(API_URL + "clientes")
         .then((response) => {
-          console.log("Clientes:", response.data);
           this.clientes = response.data;
         })
         .catch((error) => {
           console.error("Erro ao buscar clientes:", error);
         });
+    },
+    addClient() {
+      // Lógica para adicionar um novo cliente
     },
   },
 };

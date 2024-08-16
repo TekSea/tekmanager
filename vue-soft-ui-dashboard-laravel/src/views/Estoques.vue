@@ -1,45 +1,65 @@
 <template>
-  <div class="container">
-    <h1>Estoque</h1>
-    <EstoqueTable :estoque="estoque" />
+  <div class="py-4 container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <!-- Card header -->
+          <div class="pb-0 card-header">
+            <div class="d-lg-flex">
+              <div>
+                <h5 class="mb-0">Lista de Estoques</h5>
+              </div>
+              <div class="my-auto mt-4 ms-auto mt-lg-0">
+                <div class="my-auto ms-auto">
+                  <a @click="addEstoque" class="mb-0 btn bg-gradient-success btn-sm">
+                    +&nbsp; Novo Estoque
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="px-4 pb-4 card-body">
+            <estoque-table :estoques="estoques" />
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-import EstoqueTable from './components/EstoqueTable.vue';
+import axios from "axios";
+import EstoqueTable from "./components/EstoqueTable.vue";
 
-const API_URL = process.env.VUE_APP_API_BASE_URL + '/';
+const API_URL = process.env.VUE_APP_API_BASE_URL + "/";
 
 export default {
-  name: 'Estoques',
+  name: "Estoques",
   components: {
     EstoqueTable,
   },
   data() {
     return {
-      estoque: [],
+      estoques: [],
     };
   },
   created() {
-    this.fetchEstoque();
+    this.fetchEstoques();
   },
   methods: {
-    fetchEstoque() {
-      axios.get(API_URL + 'estoques')
-        .then(response => {
-          this.estoque = response.data;
+    fetchEstoques() {
+      axios
+        .get(API_URL + "estoques")
+        .then((response) => {
+          this.estoques = response.data;
         })
-        .catch(error => {
-          console.error('Erro ao buscar dados do estoque:', error);
+        .catch((error) => {
+          console.error("Erro ao buscar estoques:", error);
         });
+    },
+    addEstoque() {
+      // Lógica para adicionar um novo estoque
     },
   },
 };
 </script>
-
-<style scoped>
-.container {
-  margin-top: 20px;
-}
-</style>
