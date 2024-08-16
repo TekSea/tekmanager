@@ -4,7 +4,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EstoqueController;
 use App\Http\Controllers\RastreabilidadeController;
 
-
+use App\Http\Controllers\RastreabilidaeFriendlyController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -47,3 +47,5 @@ JsonApiRoute::server('v2')->prefix('v2')->resources(function (ResourceRegistrar 
 Route::apiResource('v2/clientes', ClienteController::class);
 Route::apiResource('v2/estoques', EstoqueController::class);
 Route::apiResource('v2/rastreabilidades', RastreabilidadeController::class);
+
+Route::get('v2/rastreabilidade_friendly', [RastreabilidaeFriendlyController::class, 'index']);
