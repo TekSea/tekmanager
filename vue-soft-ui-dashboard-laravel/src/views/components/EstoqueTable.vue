@@ -87,7 +87,7 @@
           <a
             class="page-link"
             @click="setPage(page)"
-            style="color: white"
+            style="color: gray"
           >
             {{ page }}
           </a>
