@@ -1,5 +1,59 @@
 <template>
   <div>
+    <!-- Modal de Edição -->
+    <div
+      class="modal fade"
+      id="editClientModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="editClientModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editClientModalLabel">Editar Cliente</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="updateClient">
+              <div class="mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input
+                  type="text"
+                  v-model="currentClient.nome"
+                  class="form-control"
+                  id="nome"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="cnpj_cpf" class="form-label">CNPJ/CPF</label>
+                <input
+                  type="text"
+                  v-model="currentClient.cnpj_cpf"
+                  class="form-control"
+                  id="cnpj_cpf"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="nome_fantasia" class="form-label">Nome Fantasia</label>
+                <input
+                  type="text"
+                  v-model="currentClient.nome_fantasia"
+                  class="form-control"
+                  id="nome_fantasia"
+                />
+              </div>
+              <!-- Adicione outros campos relevantes aqui -->
+              <button type="submit" class="btn btn-primary">Salvar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="row mb-3">
       <div class="col-md-6">
         <input
@@ -114,6 +168,9 @@
 </template>
 
 <script>
+import axios from "axios";
+import { Modal } from 'bootstrap';
+
 export default {
   name: "ClientesTable",
   props: {
@@ -129,6 +186,13 @@ export default {
       itemsPerPage: 10,
       currentSort: 'nome',
       currentSortDir: 'asc',
+      currentClient: {
+        id: null,
+        nome: '',
+        cnpj_cpf: '',
+        nome_fantasia: '',
+        // Adicione outros campos relevantes
+      },
     };
   },
   computed: {
@@ -167,7 +231,7 @@ export default {
       const maxVisiblePages = 5;
       const startPage = Math.max(1, this.currentPage - Math.floor(maxVisiblePages / 2));
       const endPage = Math.min(startPage + maxVisiblePages - 1, this.totalPages);
-      return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+            return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
     },
     showEllipsis() {
       return this.totalPages > this.visiblePages.length;
@@ -202,12 +266,46 @@ export default {
       }
     },
     editClient(id) {
-      // Lógica para editar o cliente
-      console.log("Editar cliente:", id);
+      // Busca o cliente pelo ID e popula o modal com os dados
+      axios.get(`${process.env.VUE_APP_API_BASE_URL}/clientes/${id}`)
+        .then(response => {
+          this.currentClient = response.data;
+          // Abre o modal de edição
+          const modalElement = document.getElementById('editClientModal');
+          const modalInstance = new Modal(modalElement);
+          modalInstance.show();
+        })
+        .catch(error => {
+          console.error('Erro ao buscar o cliente:', error);
+        });
+    },
+    updateClient() {
+      // Envia os dados atualizados para o backend
+      axios.put(`${process.env.VUE_APP_API_BASE_URL}/clientes/${this.currentClient.id}`, this.currentClient)
+        .then(response => {
+          // Atualiza a lista de clientes no frontend
+          const index = this.clientes.findIndex(cliente => cliente.id === this.currentClient.id);
+          if (index !== -1) {
+            this.clientes.splice(index, 1, response.data);
+          }
+          // Fecha o modal de edição
+          const modal = bootstrap.Modal.getInstance(document.getElementById('editClientModal'));
+          modal.hide();
+        })
+        .catch(error => {
+          console.error('Erro ao atualizar o cliente:', error);
+        });
     },
     deleteClient(id) {
       // Lógica para excluir o cliente
       console.log("Excluir cliente:", id);
+      axios.delete(`${process.env.VUE_APP_API_BASE_URL}/clientes/${id}`)
+        .then(() => {
+          this.clientes = this.clientes.filter(cliente => cliente.id !== id);
+        })
+        .catch(error => {
+          console.error('Erro ao excluir o cliente:', error);
+        });
     },
   },
 };
