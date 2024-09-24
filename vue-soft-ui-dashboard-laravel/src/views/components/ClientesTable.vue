@@ -112,7 +112,7 @@
               </a>
               <a
                 @click="deleteClient(cliente.id)"
-                class="actionButton deleteButton cursor-pointer"
+                class="actionButton deleteButton cursor-pointer" 
                 data-bs-toggle="tooltip"
                 title="Excluir Cliente"
               >
@@ -168,8 +168,7 @@
 </template>
 
 <script>
-import axios from "axios";
-import { Modal } from 'bootstrap';
+//import axios from "axios";
 
 export default {
   name: "ClientesTable",
@@ -266,6 +265,8 @@ export default {
       }
     },
     editClient(id) {
+      console.log("editando cliente id:",id);
+        /*
       // Busca o cliente pelo ID e popula o modal com os dados
       axios.get(`${process.env.VUE_APP_API_BASE_URL}/clientes/${id}`)
         .then(response => {
@@ -277,28 +278,15 @@ export default {
         })
         .catch(error => {
           console.error('Erro ao buscar o cliente:', error);
-        });
+        });*/
     },
     updateClient() {
-      // Envia os dados atualizados para o backend
-      axios.put(`${process.env.VUE_APP_API_BASE_URL}/clientes/${this.currentClient.id}`, this.currentClient)
-        .then(response => {
-          // Atualiza a lista de clientes no frontend
-          const index = this.clientes.findIndex(cliente => cliente.id === this.currentClient.id);
-          if (index !== -1) {
-            this.clientes.splice(index, 1, response.data);
-          }
-          // Fecha o modal de edição
-          const modal = bootstrap.Modal.getInstance(document.getElementById('editClientModal'));
-          modal.hide();
-        })
-        .catch(error => {
-          console.error('Erro ao atualizar o cliente:', error);
-        });
+      console.log('Atualizar cliente:', this.currentClient);
     },
     deleteClient(id) {
-      // Lógica para excluir o cliente
+      // Lógica para excluir o cliente      
       console.log("Excluir cliente:", id);
+      /*
       axios.delete(`${process.env.VUE_APP_API_BASE_URL}/clientes/${id}`)
         .then(() => {
           this.clientes = this.clientes.filter(cliente => cliente.id !== id);
@@ -306,9 +294,10 @@ export default {
         .catch(error => {
           console.error('Erro ao excluir o cliente:', error);
         });
+        */
     },
   },
-};
+}; 
 </script>
 
 <style scoped>

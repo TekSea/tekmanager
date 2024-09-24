@@ -7,11 +7,11 @@
           <div class="pb-0 card-header">
             <div class="d-lg-flex">
               <div>
-                <h5 class="mb-0">Controle de Estoque</h5>
+                <h5 class="mb-0">Estoque</h5>
               </div>
               <div class="my-auto mt-4 ms-auto mt-lg-0">
                 <div class="my-auto ms-auto">
-                  <a @click="addEstoque" class="mb-0 btn bg-gradient-success btn-sm">
+                  <a @click="addItem" class="mb-0 btn bg-gradient-success btn-sm">
                     +&nbsp; Novo Item
                   </a>
                 </div>
@@ -19,17 +19,27 @@
             </div>
           </div>
           <div class="px-4 pb-4 card-body">
-            <table id="estoque-table" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Produto</th>
-                  <th>NCM</th>
-                  <th>Ref. Sistema</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-            </table>
+            <div>
+              <vue-good-table :columns="columns" :rows="estoques" :search-options="{ enabled: true }"
+                :pagination-options="{ enabled: true, perPageDropdown: [10, 25, 50, 100] }">
+                <template v-slot:table-row="props">
+                  <span v-if="props.column.field === 'actions'">
+                    <!-- Ícone de edição com Tippy -->
+                    <tippy content="Editar">
+                      <font-awesome-icon icon="edit" class="text-primary cursor-pointer"
+                        @click="editItem(props.row.id)" />
+                    </tippy>
+
+                    <!-- Ícone de exclusão com Tippy -->
+                    <tippy content="Excluir">
+                      <font-awesome-icon icon="trash" class="text-danger cursor-pointer ms-3"
+                        @click="deleteItem(props.row.id)" />
+                    </tippy>
+                  </span>
+                  <span v-else>{{ props.formattedRow[props.column.field] }}</span>
+                </template>
+              </vue-good-table>
+            </div>
           </div>
         </div>
       </div>
@@ -39,15 +49,43 @@
 
 <script>
 import axios from 'axios';
-import $ from 'jquery';
-import 'datatables.net-bs5';
-import 'datatables.net-responsive-bs5';
+import { VueGoodTable } from 'vue-good-table-next';
+import 'vue-good-table-next/dist/vue-good-table-next.css';
 
 export default {
   name: 'Estoques',
+  components: {
+    VueGoodTable,
+  },
   data() {
     return {
-      estoques: [],
+      estoques: [], // Dados dos estoques
+      columns: [
+        {
+          label: 'ID',
+          field: 'id',
+          sortable: true,
+        },
+        {
+          label: 'Produto',
+          field: 'produto',
+          sortable: true,
+        },
+        {
+          label: 'NCM',
+          field: 'ncm',
+          sortable: true,
+        },
+        {
+          label: 'Ref. Sistema',
+          field: 'ref_sistema',
+          sortable: true,
+        },
+        {
+          label: 'Ações',
+          field: 'actions',
+        },
+      ],
     };
   },
   mounted() {
@@ -55,51 +93,27 @@ export default {
   },
   methods: {
     fetchEstoques() {
-      axios.get(process.env.VUE_APP_API_BASE_URL + '/estoques')
-        .then(response => {
+      axios
+        .get(process.env.VUE_APP_API_BASE_URL + '/estoques')
+        .then((response) => {
           this.estoques = response.data;
-          this.initializeDataTable();
         })
-        .catch(error => {
-          console.error("Erro ao buscar estoques:", error);
+        .catch((error) => {
+          console.error('Erro ao buscar estoques:', error);
         });
     },
-    initializeDataTable() {
-      $('#estoque-table').DataTable({
-        data: this.estoques,
-        columns: [
-          { data: 'id' },
-          { data: 'produto' },
-          { data: 'ncm' },
-          { data: 'ref_sistema' },
-          {
-            data: null,
-            render: (data) => {
-              return `
-                <a href="#" class="btn btn-sm btn-primary" onclick="editItem(${data.id})">Editar</a>
-                <a href="#" class="btn btn-sm btn-danger" onclick="deleteItem(${data.id})">Excluir</a>
-              `;
-            }
-          }
-        ],
-        paging: true,
-        searching: true,
-        ordering: true,
-        responsive: true,
-        /*language: {
-           url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/pt-BR.json'
-        },*/
-        lengthMenu: [ [10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"] ], // Opções de registros por página
-        pageLength: 5,
-        //dom: '<"top"f>rt<"bottom"ip><"clear">',
-      });
-    }
-  }
+    editItem(id) {
+      console.log('Editando item com id:', id);
+    },
+    deleteItem(id) {
+      console.log('Excluindo item com id:', id);
+    },
+  },
 };
 </script>
 
-<style>
-@import "~datatables.net-bs5/css/dataTables.bootstrap5.min.css";
-@import "~bootstrap/dist/css/bootstrap.min.css";
-
+<style scoped>
+.cursor-pointer {
+  cursor: pointer;
+}
 </style>

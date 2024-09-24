@@ -21,11 +21,23 @@ import "./assets/css/nucleo-icons.css";
 import "./assets/css/nucleo-svg.css";
 import SoftUIDashboard from "./soft-ui-dashboard";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import VueTippy from 'vue-tippy'
+import 'tippy.js/dist/tippy.css';
+
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faEdit, faTrash);
 
 const appInstance = createApp(App);
 appInstance.use(store);
 appInstance.use(router);
 appInstance.use(SoftUIDashboard);
 appInstance.mount("#app");
+
+// Use Tippy plugin
+appInstance.use(VueTippy);
+  
+// Register FontAwesomeIcon globally
+appInstance.component('font-awesome-icon', FontAwesomeIcon);
