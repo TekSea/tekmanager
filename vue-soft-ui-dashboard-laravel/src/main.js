@@ -28,12 +28,18 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
+import ElementPlus from 'element-plus';
+import 'element-plus/dist/index.css'
+
 library.add(faEdit, faTrash);
 
 const appInstance = createApp(App);
 appInstance.use(store);
 appInstance.use(router);
 appInstance.use(SoftUIDashboard);
+
+appInstance.use(ElementPlus);
+
 appInstance.mount("#app");
 
 // Use Tippy plugin
