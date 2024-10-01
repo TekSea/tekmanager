@@ -111,11 +111,41 @@ export default {
       this.isModalVisible = false; // Fecha o modal
     },
     saveChanges() {
-      console.log('Alterações salvas:', this.selectedItem);
-      this.closeModal();
-    },
-    deleteItem(id) {
-      console.log('Excluindo item com id:', id);
+    if (this.selectedItem.id) {
+      // Atualiza o item existente
+      axios
+        .put(`${process.env.VUE_APP_API_BASE_URL}/estoques/${this.selectedItem.id}`, this.selectedItem)
+        .then((response) => {
+          console.log('Item atualizado com sucesso:', response.data);
+          this.fetchEstoques(); // Atualiza a lista de estoques
+        })
+        .catch((error) => {
+          console.error('Erro ao atualizar o item:', error);
+        });
+    } else {
+      // Cria um novo item
+      axios
+        .post(`${process.env.VUE_APP_API_BASE_URL}/estoques`, this.selectedItem)
+        .then((response) => {
+          console.log('Novo item criado com sucesso:', response.data);
+          this.fetchEstoques(); // Atualiza a lista de estoques
+        })
+        .catch((error) => {
+          console.error('Erro ao criar o item:', error);
+        });
+    }
+    this.closeModal(); // Fecha o modal após salvar as alterações
+  },
+  deleteItem(id) {
+    axios
+      .delete(`${process.env.VUE_APP_API_BASE_URL}/estoques/${id}`)
+      .then(() => {
+        console.log(`Item com id ${id} excluído com sucesso.`);
+        this.fetchEstoques(); // Atualiza a lista de estoques após exclusão
+      })
+      .catch((error) => {
+        console.error('Erro ao excluir o item:', error);
+      });
     },
   },
 };
