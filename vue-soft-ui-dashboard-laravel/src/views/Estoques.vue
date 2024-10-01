@@ -43,7 +43,7 @@
 
     <!-- Modal para Edição -->
     <el-dialog v-model="isModalVisible" title="Editar Item de Estoque">
-      <el-form>
+      <el-form label-width="120px">
         <el-form-item label="Produto">
           <el-input v-model="selectedItem.produto"></el-input>
         </el-form-item>
