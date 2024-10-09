@@ -52,7 +52,7 @@
       </li>
 
       <li class="nav-item">
-        <sidenav-collapse navText="Estoque" :to="{ name: 'Estoques' }">
+        <sidenav-collapse navText="Produto" :to="{ name: 'Produtos' }">
           <template #icon>
             <box />
           </template>

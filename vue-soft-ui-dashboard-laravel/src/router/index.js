@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Dashboard from "@/views/Dashboard.vue";
 import Clientes from "@/views/Clientes.vue";
 import Home from "@/views/Home.vue";
-import Estoques from "@/views/Estoques.vue";
+import Produtos from "@/views/Produtos.vue";
 import Rastreabilidade from '../views/Rastreabilidade.vue';
 import Tables from "@/views/Tables.vue";
 import Billing from "@/views/Billing.vue";
@@ -43,9 +43,9 @@ const routes = [
     component: Clientes
   },
   {
-    path: '/estoques',
-    name: 'Estoques',
-    component: Estoques,
+    path: '/produtos',
+    name: 'Produtos',
+    component: Produtos,
   },
   {
     path: '/rastreabilidades',

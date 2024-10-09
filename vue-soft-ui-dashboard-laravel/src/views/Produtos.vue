@@ -7,7 +7,7 @@
           <div class="pb-0 card-header">
             <div class="d-lg-flex">
               <div>
-                <h5 class="mb-0">Estoque</h5>
+                <h5 class="mb-0">Produto</h5>
               </div>
               <div class="my-auto mt-4 ms-auto mt-lg-0">
                 <div class="my-auto ms-auto">
@@ -21,7 +21,7 @@
 
           <!-- Corpo da Tabela -->
           <div class="px-4 pb-4 card-body">
-            <vue-good-table :columns="columns" :rows="estoques" :search-options="{ enabled: true }"
+            <vue-good-table :columns="columns" :rows="produtos" :search-options="{ enabled: true }"
               :pagination-options="{ enabled: true, perPageDropdown: [10, 25, 50, 100] }">
               <template v-slot:table-row="props">
                 <span v-if="props.column.field === 'actions'">
@@ -42,7 +42,7 @@
     </div>
 
     <!-- Modal para Edição -->
-    <el-dialog v-model="isModalVisible" title="Editar Item de Estoque">
+    <el-dialog v-model="isModalVisible" title="Editar Item de Produto">
       <el-form label-width="120px">
         <el-form-item label="Produto">
           <el-input v-model="selectedItem.produto"></el-input>
@@ -69,13 +69,13 @@ import { VueGoodTable } from 'vue-good-table-next';
 import 'vue-good-table-next/dist/vue-good-table-next.css';
 
 export default {
-  name: 'Estoques',
+  name: 'Produtos',
   components: {
     VueGoodTable,
   },
   data() {
     return {
-      estoques: [],
+      produtos: [],
       selectedItem: {},
       isModalVisible: false,
       columns: [
@@ -88,17 +88,17 @@ export default {
     };
   },
   mounted() {
-    this.fetchEstoques();
+    this.fetchProdutos();
   },
   methods: {
-    fetchEstoques() {
+    fetchProdutos() {
       axios
-        .get(process.env.VUE_APP_API_BASE_URL + '/estoques')
+        .get(process.env.VUE_APP_API_BASE_URL + '/produtos')
         .then((response) => {
-          this.estoques = response.data;
+          this.produtos = response.data;
         })
         .catch((error) => {
-          console.error('Erro ao buscar estoques:', error);
+          console.error('Erro ao buscar produtos:', error);
         });
     },
     openModal(item = {}) {
@@ -114,10 +114,10 @@ export default {
     if (this.selectedItem.id) {
       // Atualiza o item existente
       axios
-        .put(`${process.env.VUE_APP_API_BASE_URL}/estoques/${this.selectedItem.id}`, this.selectedItem)
+        .put(`${process.env.VUE_APP_API_BASE_URL}/produtos/${this.selectedItem.id}`, this.selectedItem)
         .then((response) => {
           console.log('Item atualizado com sucesso:', response.data);
-          this.fetchEstoques(); // Atualiza a lista de estoques
+          this.fetchProdutos(); // Atualiza a lista de produtos
         })
         .catch((error) => {
           console.error('Erro ao atualizar o item:', error);
@@ -125,10 +125,10 @@ export default {
     } else {
       // Cria um novo item
       axios
-        .post(`${process.env.VUE_APP_API_BASE_URL}/estoques`, this.selectedItem)
+        .post(`${process.env.VUE_APP_API_BASE_URL}/produtos`, this.selectedItem)
         .then((response) => {
           console.log('Novo item criado com sucesso:', response.data);
-          this.fetchEstoques(); // Atualiza a lista de estoques
+          this.fetchProdutos(); // Atualiza a lista de produtos
         })
         .catch((error) => {
           console.error('Erro ao criar o item:', error);
@@ -138,10 +138,10 @@ export default {
   },
   deleteItem(id) {
     axios
-      .delete(`${process.env.VUE_APP_API_BASE_URL}/estoques/${id}`)
+      .delete(`${process.env.VUE_APP_API_BASE_URL}/produtos/${id}`)
       .then(() => {
         console.log(`Item com id ${id} excluído com sucesso.`);
-        this.fetchEstoques(); // Atualiza a lista de estoques após exclusão
+        this.fetchProdutos(); // Atualiza a lista de produtos após exclusão
       })
       .catch((error) => {
         console.error('Erro ao excluir o item:', error);

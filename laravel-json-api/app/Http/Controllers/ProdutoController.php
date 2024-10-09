@@ -2,29 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Estoque;
+use App\Models\Produto;
 use Illuminate\Http\Request;
 
-class EstoqueController extends Controller
+class ProdutoController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/api/v2/estoques",
-     *     summary="Get all estoques",
-     *     description="Tabela que armazena informações sobre os itens no estoque",
-     *     @OA\Response(response="200", description="Get all estoques")
+     *     path="/api/v2/produtos",
+     *     summary="Get all produtos",
+     *     description="Tabela que armazena informações sobre os produtos",
+     *     @OA\Response(response="200", description="Get all produtos")
      * )
      */
     public function index()
     {
-        $estoques = Estoque::all();
-        return response()->json($estoques);
+        $produtos = Produto::all();
+        return response()->json($produtos);
     }
 
     /**
      * @OA\Post(
-     *     path="/api/v2/estoques",
-     *     summary="Create a new estoque",
+     *     path="/api/v2/produtos",
+     *     summary="Create a new produto",
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
@@ -39,45 +39,45 @@ class EstoqueController extends Controller
      *             }
      *         )
      *     ),
-     *     @OA\Response(response="201", description="Create a new estoque")
+     *     @OA\Response(response="201", description="Create a new produto")
      * )
      */
     public function store(Request $request)
     {
-        $estoque = Estoque::create($request->all());
-        return response()->json($estoque, 201);
+        $produto = Produto::create($request->all());
+        return response()->json($produto, 201);
     }
 
     /**
      * @OA\Get(
-     *     path="/api/v2/estoques/{id}",
-     *     summary="Get a estoque by ID",
+     *     path="/api/v2/produtos/{id}",
+     *     summary="Get a produto by ID",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
      *         @OA\Schema(type="integer"),
-     *         description="The ID of the estoque"
+     *         description="The ID of the produto"
      *     ),
-     *     @OA\Response(response="200", description="Get a estoque by ID")
+     *     @OA\Response(response="200", description="Get a produto by ID")
      * )
      */
     public function show($id)
     {
-        $estoque = Estoque::where('id', $id)->firstOrFail();
-        return response()->json($estoque);
+        $produto = Produto::where('id', $id)->firstOrFail();
+        return response()->json($produto);
     }
 
     /**
      * @OA\Put(
-     *     path="/api/v2/estoques/{id}",
-     *     summary="Update a estoque",
+     *     path="/api/v2/produtos/{id}",
+     *     summary="Update a produto",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
      *         @OA\Schema(type="integer"),
-     *         description="The ID of the estoque"
+     *         description="The ID of the produto"
      *     ),
      *     @OA\RequestBody(
      *         required=true,
@@ -93,34 +93,34 @@ class EstoqueController extends Controller
      *             }
      *         )
      *     ),
-     *     @OA\Response(response="200", description="Update a estoque")
+     *     @OA\Response(response="200", description="Update a produto")
      * )
      */
     public function update(Request $request, $id)
     {
-        $estoque = Estoque::where('id', $id)->firstOrFail();
-        $estoque->update($request->all());
-        return response()->json($estoque, 200);
+        $produto = Produto::where('id', $id)->firstOrFail();
+        $produto->update($request->all());
+        return response()->json($produto, 200);
     }
 
     /**
      * @OA\Delete(
-     *     path="/api/v2/estoques/{id}",
-     *     summary="Delete a estoque",
+     *     path="/api/v2/produtos/{id}",
+     *     summary="Delete a produto",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         required=true,
      *         @OA\Schema(type="integer"),
-     *         description="The ID of the estoque"
+     *         description="The ID of the produto"
      *     ),
-     *     @OA\Response(response="204", description="Delete a estoque")
+     *     @OA\Response(response="204", description="Delete a produto")
      * )
      */
     public function destroy($id)
     {
-        $estoque = Estoque::where('id', $id)->firstOrFail();
-        $estoque->delete();
+        $produto = Produto::where('id', $id)->firstOrFail();
+        $produto->delete();
         return response()->json(null, 204);
     }
 }

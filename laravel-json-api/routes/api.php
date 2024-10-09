@@ -1,10 +1,6 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
-use App\Http\Controllers\EstoqueController;
-use App\Http\Controllers\RastreabilidadeController;
-
-use App\Http\Controllers\RastreabilidaeFriendlyController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +13,13 @@ use App\Http\Controllers\Api\V2\Auth\ResetPasswordController;
 use App\Http\Controllers\Api\V2\MeController;
 use LaravelJsonApi\Laravel\Facades\JsonApiRoute;
 use LaravelJsonApi\Laravel\Http\Controllers\JsonApiController;
+use App\Http\Controllers\CustomClienteController;
+use App\Http\Controllers\CustomProdutoController;
+use App\Http\Controllers\CustonUserControler;
+
+use App\Http\Controllers\RastreabilidadeController;
+use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\RastreabilidaeFriendlyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +48,16 @@ JsonApiRoute::server('v2')->prefix('v2')->resources(function (ResourceRegistrar 
 });
 
 Route::apiResource('v2/clientes', ClienteController::class);
-Route::apiResource('v2/estoques', EstoqueController::class);
 Route::apiResource('v2/rastreabilidades', RastreabilidadeController::class);
 
 Route::get('v2/rastreabilidade_friendly', [RastreabilidaeFriendlyController::class, 'index']);
+
+Route::apiResource('v2/produtos', ProdutoController::class);
+
+Route::apiResource('v2/rastreabilidades', RastreabilidadeController::class);
+
+Route::apiResource('v2/clientes', ClienteController::class);
+
+Route::get('v2/busca/cliente', [CustomClienteController::class, 'buscar']);
+Route::get('v2/busca/produto', [CustomProdutoController::class, 'buscar']);
+Route::apiResource('v2/usuarios', CustonUserControler::class);

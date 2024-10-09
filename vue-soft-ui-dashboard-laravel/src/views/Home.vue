@@ -11,7 +11,7 @@
               O <strong>TekManager</strong> é um sistema integrado de gestão empresarial desenvolvido para
               facilitar e otimizar a administração de suas operações. Com uma interface intuitiva e
               ferramentas poderosas, o TekManager oferece controle completo sobre os processos de sua empresa, 
-              desde a gestão de clientes e estoque até a rastreabilidade de produtos.
+              desde a gestão de clientes e produto até a rastreabilidade de produtos.
             </p>
             <p class="text-sm">
               Nosso objetivo é fornecer uma solução que não apenas automatize tarefas, mas também ofereça 
@@ -28,7 +28,7 @@
             </p>
             <ul class="text-sm">
               <li>Gestão de Clientes: Mantenha o controle sobre suas relações comerciais com um banco de dados robusto e flexível.</li>
-              <li>Gestão de Estoque: Monitore seus produtos em tempo real, com alertas e relatórios detalhados.</li>
+              <li>Gestão de Produto: Monitore seus produtos em tempo real, com alertas e relatórios detalhados.</li>
               <li>Rastreabilidade de Produtos: Garanta a qualidade e segurança com rastreabilidade completa de cada item.</li>
               <li>Gestão de Usuários: Controle de acesso e permissões para garantir a segurança das informações.</li>
             </ul>
